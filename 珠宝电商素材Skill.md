@@ -9,6 +9,8 @@
 
 即梦在线版实测中，链式调用不容易自然触发，所以本技能必须把每一步的“下一步工具”写得非常明确：图片生成完成后必须继续用生成图作为参考进入视频工具；视频片段生成后必须继续进入 `video_editor`；缺少必填信息时才调用表单，不把可选项变成阻塞。
 
+批量和并发执行必须遵守 [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md)。电商任务的数量单位是 `SKU × 预设槽位`，不能把一张拼图、一个视频或一段文案当作多个 SKU 的替代交付。
+
 ## 一、触发范围
 
 ### 1.1 应使用本技能的情况
@@ -75,6 +77,42 @@
 - 宝石：主石颜色、切工、位置，副石排列。
 - 结构：镶口、爪数、链条、扣具、耳针、铰链、开口等。
 - 禁止变化：不得增加宝石、改金属、改主石形状、添加假 Logo、证书或价格。
+
+## 四点五、任务清单、数量守恒和并发
+
+在调用任何生成工具前，先生成电商任务清单。
+
+### 4.5.1 计数规则
+
+| 场景 | requested_count 计算 |
+|---|---|
+| 1 个 SKU 的 Amazon 预设 | 9 张图片 + 1 个视频 + 1 组文案 |
+| N 个 SKU 的 Amazon 预设 | N × 9 张图片 + N 个视频 + N 组文案 |
+| Shopify 7 图预设 | 每个 SKU 7 张图片 + 1 个视频 + 1 组文案 |
+| 纯产品净化包 | 每个 SKU 至少白底图、透明底、高清细节和文案 |
+
+如果用户说“3 款戒指做亚马逊九图和视频”，必须规划 3 个 SKU，每个 SKU 9 张图、1 条视频和 1 组文案；不得只做一套示例。
+
+### 4.5.2 任务清单模板
+
+```Markdown
+| job_id | SKU | target | tool | depends_on | status | quality_gate |
+|---|---|---|---|---|---|---|
+| SKU01-BASE | SKU01 | 产品母图/身份参考 | text2image_v3 或 用户上传图 |  | planned | 产品身份锁 |
+| SKU01-IMG01 | SKU01 | 白底主图 | image2image_v3 | SKU01-BASE | planned | EC-I1/EC-I3 |
+| SKU01-IMG04 | SKU01 | 微距细节图 | image2image_v3 | SKU01-BASE | planned | EC-I1/EC-I5 |
+| SKU01-VID01 | SKU01 | 10 秒视频 | multi_modal2video | SKU01-IMG01, SKU01-IMG04, SKU01-IMG05, SKU01-IMG08 | planned | EC-V1/EC-V3 |
+| SKU01-FINAL | SKU01 | 最终成片 | video_editor | SKU01-VID01 | planned | EC-V4 |
+```
+
+### 4.5.3 并发规则
+
+- 产品母图或上传图确认前，不并发生成槽位图。
+- 同一 SKU 的 9 张独立图片可并发生成，默认并发 4-6。
+- 多个 SKU 可按 SKU 分批，也可对同类槽位并发，但每个 job 必须带 SKU 编号。
+- 视频生成依赖主图、微距图、佩戴图、礼盒图；这些参考图未完成前不得生成视频。
+- 每个 SKU 的最终 `video_editor` 拼接只能在该 SKU 视频素材完成后执行。
+- 失败图片保留原 job_id 重试，不减少 requested_count。
 
 ## 五、电商预设
 
@@ -247,6 +285,15 @@ Amazon 默认输出：
 
 ```Markdown
 # 珠宝电商素材交付
+
+## 执行汇总
+- requested_count:
+- planned_count:
+- done_count:
+- failed_count:
+- missing_count:
+- concurrency:
+- batch_size:
 
 ## 项目摘要
 - 产品:

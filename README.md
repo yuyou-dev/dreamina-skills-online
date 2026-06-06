@@ -16,6 +16,7 @@
 
 扩展空间：
 
+- [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) - 所有复合技能共享的链式调用、批量任务、数量守恒和并发执行规范。
 - [presets/README.md](presets/README.md) - 后续专业提示词预设的命名和内容约定。
 
 本仓库用于沉淀从 SVT 珠宝设计能力迁移到即梦在线工具链的公开 skill 说明。

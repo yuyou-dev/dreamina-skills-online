@@ -9,6 +9,8 @@
 
 即梦在线版链式调用容易停在单步结果，因此本技能必须显式写出每一步的下一步工具。唯一默认需要用户参与确认的是“脚本确认”；脚本确认后，后续分段生成和拼接应自动继续。
 
+批量和并发执行必须遵守 [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md)。脱口秀任务的数量单位是 `segment_id`：脚本确认后有几段，就必须生成几段视频素材，并最终拼接成 1 条完整视频。
+
 ## 一、触发范围
 
 ### 1.1 应使用本技能的情况
@@ -169,6 +171,35 @@
 | S05 | 20-25 秒 | 主包袱和观众反应 |
 | S06 | 25-30 秒 | 结尾 tag 和收场 |
 
+### 6.1.1 分段任务清单和数量守恒
+
+脚本确认后立即生成 manifest：
+
+```Markdown
+| job_id | target | tool | depends_on | status | quality_gate |
+|---|---|---|---|---|---|
+| TS-KEYFRAME | 舞台关键帧 | image2image_v3 | 角色素材 | planned | 角色身份锁 |
+| TS-S01 | Hook 分段视频 | multi_modal2video | TS-KEYFRAME, 脚本确认 | planned | TS-V1/TS-V3 |
+| TS-S02 | Setup 分段视频 | multi_modal2video | TS-KEYFRAME, 脚本确认 | planned | TS-V1/TS-V3 |
+| TS-FINAL | 完整脱口秀视频 | video_editor | TS-S01...TS-S06 | planned | TS-V5 |
+```
+
+计数规则：
+
+- `requested_count = confirmed_segment_count + 1 final_video`。
+- `planned_count` 必须等于所有分段任务 + 最终 `video_editor` 任务。
+- 任何分段失败都必须保留原 `TS-Sxx` 编号重试。
+- 如果某个分段失败且未修复，`TS-FINAL` 不得标记完成。
+
+### 6.1.2 并发规则
+
+- 脚本未确认前，不生成任何视频分段。
+- 角色关键帧未通过前，不并发生成所有分段。
+- 脚本确认且关键帧通过后，`TS-S01` 到 `TS-Sxx` 可按 2-4 个并发生成。
+- 需要强连续性的开场/结尾可单独生成；普通中段可并发。
+- `video_editor` 必须等待所有分段进入 `done`，并按脚本顺序拼接。
+- 如果并发导致角色漂移，下调并发，增加每段的角色身份锁和上段衔接描述。
+
 ### 6.2 默认生成工具
 
 默认使用：
@@ -266,6 +297,15 @@
 
 ```Markdown
 # 脱口秀视频交付
+
+## 执行汇总
+- requested_count:
+- planned_count:
+- done_count:
+- failed_count:
+- missing_count:
+- concurrency:
+- batch_size:
 
 ## 角色分析
 - 角色身份:
