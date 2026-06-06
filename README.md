@@ -15,10 +15,11 @@
 - 设计技能主打专业设计、真实结构、图片美感和批量效率。
 - 所有复合技能都加强了即梦在线版的链式调用引导，避免停在单步图片、脚本或分段素材。
 - 如果即梦在线环境不能读取其他 Markdown，优先直接使用 [大批量执行Skill.md](大批量执行Skill.md)，它是完整自包含的批量执行规划说明。
+- 每个可安装到即梦在线版的 skill 文件都应视为独立文件：运行时不要依赖 README、共享规范或 `presets/` 被自动读取。
 
 扩展空间：
 
-- [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) - 所有复合技能共享的链式调用、批量任务、数量守恒和并发执行规范。
-- [presets/README.md](presets/README.md) - 后续专业提示词预设的命名和内容约定。
+- [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) - 仓库维护用共享备忘；不是即梦在线版运行依赖。
+- [presets/README.md](presets/README.md) - 后续专业提示词预设的命名和内容约定；不是即梦在线版运行依赖。
 
 本仓库用于沉淀从 SVT 珠宝设计能力迁移到即梦在线工具链的公开 skill 说明。
