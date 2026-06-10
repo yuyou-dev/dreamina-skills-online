@@ -1,25 +1,61 @@
 # dreamina-skills-online
 
-即梦在线技能说明文档项目。
+即梦在线版自定义技能说明文档项目。
 
-当前包含四个独立技能：
+本仓库沉淀一组可直接安装到即梦在线版的 Markdown skill。每个可安装 skill 都应当是**独立、自包含、可单文件运行**的说明文档：即梦运行时不应依赖 README、共享规范、`presets/` 或其他 Markdown 被自动读取。
 
-- [珠宝电商素材Skill.md](珠宝电商素材Skill.md) - 电商交付型技能，面向“珠宝产品 + 简单描述 → 全套图 + 文 + 视频”的预设化物料生产。
-- [JewelryDesignSkills.md](JewelryDesignSkills.md) - 专业珠宝设计与批量出款技能，面向单款精品设计、批量设计、系列化延展和参考图变体。
-- [脱口秀视频Skill.md](脱口秀视频Skill.md) - 脚本确认型视频技能，面向“上传角色 + 一句话主题 → 自动分析 + 脚本确认 + seedance2.0fast_vip 分段生成 + 拼接成片”。
-- [大批量执行Skill.md](大批量执行Skill.md) - 独立的大型项目规划 skill，面向“双 skill 测试”：先拆解任务、分批、并发、数量校验，再交给具体生成 skill 执行。
+## Project Purpose
 
-拆分原则：
+本项目用于把 SVT 珠宝设计与多步骤内容生产经验迁移到即梦在线工具链，并逐步沉淀成可复用 skill：
 
-- 电商技能主打预设场景和交付完整性，例如亚马逊 9 图 + 10 秒视频。
-- 设计技能主打专业设计、真实结构、图片美感和批量效率。
-- 所有复合技能都加强了即梦在线版的链式调用引导，避免停在单步图片、脚本或分段素材。
-- 如果即梦在线环境不能读取其他 Markdown，优先直接使用 [大批量执行Skill.md](大批量执行Skill.md)，它是完整自包含的批量执行规划说明。
-- 每个可安装到即梦在线版的 skill 文件都应视为独立文件：运行时不要依赖 README、共享规范或 `presets/` 被自动读取。
+- 专业珠宝设计与批量出款。
+- 珠宝电商图文视频物料生产。
+- 角色脱口秀视频生成。
+- 大批量任务规划、数量守恒、分批和并发执行。
 
-扩展空间：
+## Installable Skills
 
-- [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) - 仓库维护用共享备忘；不是即梦在线版运行依赖。
-- [presets/README.md](presets/README.md) - 后续专业提示词预设的命名和内容约定；不是即梦在线版运行依赖。
+| 文件 | 技能名称 | 用途 | 状态 |
+|---|---|---|---|
+| [JewelryDesignSkills.md](JewelryDesignSkills.md) | JewelryDesignSkills | 专业珠宝设计、批量出款、系列设计、参考图变体、材质矩阵 | active |
+| [珠宝电商素材Skill.md](珠宝电商素材Skill.md) | 珠宝电商素材Skill | 珠宝产品 + 简单描述生成全套电商图、文案和视频 | active |
+| [脱口秀视频Skill.md](脱口秀视频Skill.md) | 脱口秀视频Skill | 上传角色 + 一句话主题，确认脚本后生成并拼接脱口秀视频 | active |
+| [大批量执行Skill.md](大批量执行Skill.md) | 大批量执行Skill | 大型项目拆解、任务清单、分批、并发、数量校验和执行包输出 | active |
 
-本仓库用于沉淀从 SVT 珠宝设计能力迁移到即梦在线工具链的公开 skill 说明。
+## Support Documents
+
+| 文件 | 用途 | 运行时依赖 |
+|---|---|---|
+| [AGENTS.md](AGENTS.md) | 后续 Codex/agent 接手本仓库时的工作规则 | 否 |
+| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | 背景、约束、设计原则、当前方向 | 否 |
+| [CHANGELOG.md](CHANGELOG.md) | 记录重要迭代和提交主题 | 否 |
+| [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) | 链式调用、批量、并发的共享维护备忘 | 否 |
+| [presets/README.md](presets/README.md) | 未来预设扩展的命名和字段约定 | 否 |
+| [LICENSE](LICENSE) | MIT License | 否 |
+
+## Key Constraints
+
+- 可安装 skill 文件必须自包含，不能写成“请参考另一个 Markdown 后执行”。
+- 技能内容应符合即梦自定义 skill 写法：明确触发场景、交互阶段、执行阶段、字段表、工具调用、分支条件、质量检查。
+- 工具名应使用即梦在线版工具清单中的名称，例如 `text2image`、`image2image`、`multi_modal2video`、`video_editor`、`generate_form_for_info_collection`。
+- 对链式调用要写明“下一步工具”和“输入素材”，避免停在单步图、脚本、分段素材或计划摘要。
+- 大批量任务要先建立 manifest，保证数量守恒、依赖完整、失败项可重试。
+- 对珠宝 skill，重点保留主石/元素/草稿特征，补充品类配比、宝石排列、构图密度、画面表现和负向约束。
+
+## Recommended Workflow
+
+1. 修改前先读 [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) 和本 README。
+2. 如果修改可安装 skill，直接编辑对应 `.md` 文件，确保规则在该文件内完整出现。
+3. 如果新增能力，优先判断是：
+   - 扩展已有 skill 的一个预设；
+   - 新增一个独立 skill；
+   - 只更新维护说明。
+4. 修改后搜索旁白式表达，避免出现“实测发现”“不要假定”“参考某文件”等运行时无意义文字。
+5. 检查触发、字段、工具链、批量逻辑、质量门是否完整。
+6. 提交并推送到 GitHub。
+
+## Current Repository
+
+Public GitHub repository:
+
+<https://github.com/yuyou-dev/dreamina-skills-online>

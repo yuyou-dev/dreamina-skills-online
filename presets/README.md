@@ -1,6 +1,6 @@
 # Preset Extension Guide
 
-本目录用于未来扩展即梦在线版珠宝专业提示词预设。
+本目录用于维护人员整理未来预设草案。即梦在线运行时不应依赖本目录被读取；成熟预设应复制进对应 installable skill，或发展成独立自包含 skill。
 
 ## 命名
 
@@ -13,7 +13,7 @@
 
 ## 每个预设应包含
 
-- 适用技能：`珠宝电商素材Skill` 或 `JewelryDesignSkills`
+- 适用技能：`珠宝电商素材Skill`、`JewelryDesignSkills`、`脱口秀视频Skill` 或 `大批量执行Skill`
 - 触发语：用户说什么时适合用
 - 输入字段：必填项和默认值
 - 工具链：即梦在线工具的调用顺序
