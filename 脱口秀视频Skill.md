@@ -44,7 +44,9 @@
 
 在线版适配：
 
-- 默认视频模型写为 `seedance2.0fast_vip`。
+- 视频类任务默认使用 `seedance2.0fast_vip`。
+- 图片类任务默认使用 4.7 模型的 2k 版，用于角色母图、舞台关键帧、封面图和参考帧。
+- 如用户明确指定图片或视频模型版本，按用户指定执行，不再套用对应默认模型。
 - 若在线环境模型列表使用不同展示名，以最接近 Seedance 2.0 Fast VIP / 高质量快速视频的选项为准。
 - 图片工具如提供 v3，优先使用 `image2image_v3` / `text2image_v3`。
 - 不写本地 CLI 登录、任务 ID 查询或下载命令。
@@ -59,6 +61,8 @@
 | 语言 | 否 | 默认中文 |
 | 风格 | 否 | 默认轻松犀利、节奏紧凑、适合短视频 |
 | 舞台场景 | 否 | 默认小剧场单口喜剧舞台，暖色聚光灯，观众区虚化 |
+| 图片模型 | 否 | 默认 4.7 模型的 2k 版；用户指定模型版本时按指定 |
+| 视频模型 | 否 | 默认 `seedance2.0fast_vip`；用户指定模型版本时按指定 |
 | 角色声音 / 口播 | 否 | 默认生成字幕脚本；如在线工具支持音频/配音，可加入多模态参考 |
 | 输出比例 | 否 | 默认 9:16；横版舞台可用 16:9 |
 | 分段长度 | 否 | 默认每段 4-6 秒 |
@@ -130,6 +134,7 @@
 
 ## 视频生成设置
 - 模型: seedance2.0fast_vip
+- 图片模型: 4.7 模型 2k 版
 - 比例:
 - 分段长度:
 - 预计段数:
@@ -176,12 +181,12 @@
 脚本确认后立即生成 manifest：
 
 ```Markdown
-| job_id | target | tool | depends_on | status | quality_gate |
-|---|---|---|---|---|---|
-| TS-KEYFRAME | 舞台关键帧 | image2image_v3 | 角色素材 | planned | 角色身份锁 |
-| TS-S01 | Hook 分段视频 | multi_modal2video | TS-KEYFRAME, 脚本确认 | planned | TS-V1/TS-V3 |
-| TS-S02 | Setup 分段视频 | multi_modal2video | TS-KEYFRAME, 脚本确认 | planned | TS-V1/TS-V3 |
-| TS-FINAL | 完整脱口秀视频 | video_editor | TS-S01...TS-S06 | planned | TS-V5 |
+| job_id | target | tool | model | depends_on | status | quality_gate |
+|---|---|---|---|---|---|---|
+| TS-KEYFRAME | 舞台关键帧 | image2image_v3 | 4.7 模型 2k 版 | 角色素材 | planned | 角色身份锁 |
+| TS-S01 | Hook 分段视频 | multi_modal2video | seedance2.0fast_vip | TS-KEYFRAME, 脚本确认 | planned | TS-V1/TS-V3 |
+| TS-S02 | Setup 分段视频 | multi_modal2video | seedance2.0fast_vip | TS-KEYFRAME, 脚本确认 | planned | TS-V1/TS-V3 |
+| TS-FINAL | 完整脱口秀视频 | video_editor |  | TS-S01...TS-S06 | planned | TS-V5 |
 ```
 
 计数规则：
@@ -206,7 +211,7 @@
 
 ```text
 工具: multi_modal2video
-模型: seedance2.0fast_vip
+模型: seedance2.0fast_vip；用户指定视频模型版本时按用户指定
 输入:
 - @图片1: 用户上传角色图或生成的角色母图
 - @图片2: 舞台/封面关键帧（如已生成）
@@ -222,7 +227,7 @@
 
 ```text
 使用 @图片1 作为角色身份参考，生成脱口秀视频分段 {segment_id}。
-模型设置: seedance2.0fast_vip。
+模型设置: seedance2.0fast_vip；用户指定视频模型版本时按用户指定。
 画幅: {ratio}。
 时长: {duration} 秒。
 角色身份锁: {character_lock}
@@ -239,6 +244,7 @@
 如果上传角色图不适合直接生成视频，先调用 `image2image_v3`：
 
 ```text
+模型设置: 图片默认 4.7 模型 2k 版；用户指定模型版本时按用户指定。
 基于用户上传角色图，生成脱口秀舞台关键帧。
 保持角色外观、服装、道具和气质不变。
 场景为小剧场单口喜剧舞台，角色站在麦克风前，暖色聚光灯，观众区虚化。
@@ -317,14 +323,15 @@
 |---|---|---|---|---|
 
 ## 生成设置
-- 模型: seedance2.0fast_vip
+- 视频模型: seedance2.0fast_vip
+- 图片模型: 4.7 模型 2k 版
 - 比例:
 - 分段数:
 - 分段时长:
 
 ## 分段素材
-| ID | 工具 | 状态 | 备注 |
-|---|---|---|---|
+| ID | 工具 | 模型 | 状态 | 备注 |
+|---|---|---|---|---|
 
 ## 完整视频
 - 工具链: multi_modal2video → video_editor

@@ -41,6 +41,12 @@ The uploaded Dreamina custom skill guide describes these tools:
 
 Some Dreamina examples mention `text2image_v3` and `image2image_v3`. Skills may mention v3 variants when useful, but should still stay compatible with the generic tool names.
 
+Default model policy:
+
+- Video tasks use `seedance2.0fast_vip` by default.
+- Image tasks use the 4.7 model 2k version by default.
+- If the user explicitly specifies a model version, use the user-specified version instead of the default.
+
 ## Design Principles
 
 ### Self-Contained Skill Files
@@ -104,6 +110,7 @@ Recent direction:
 
 - richer prompt density;
 - preserved main stone/color/cut/proportion;
+- default image generation on the 4.7 model 2k version unless the user specifies another model;
 - category mix;
 - three embedded style presets:
   - saturated high jewelry suite;
@@ -118,6 +125,7 @@ Purpose:
 - Amazon 9 images + video;
 - Shopify/Tmall/Xiaohongshu presets;
 - image, copy, video, quality checks.
+- default image generation on the 4.7 model 2k version and default video generation on `seedance2.0fast_vip`.
 
 ### 脱口秀视频Skill.md
 
@@ -127,6 +135,7 @@ Purpose:
 - topic prompt;
 - script confirmation;
 - `seedance2.0fast_vip` segmented generation;
+- default keyframe/cover image generation on the 4.7 model 2k version;
 - `video_editor` final assembly.
 
 ### 大批量执行Skill.md
@@ -135,6 +144,7 @@ Purpose:
 
 - planning skill for large projects;
 - manifest, counts, dependencies, batching, concurrency;
+- default model assignment for image and video jobs;
 - output execution packages for another skill.
 
 ## Future Iteration Ideas

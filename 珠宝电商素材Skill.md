@@ -46,6 +46,9 @@
 在线版适配规则：
 
 - 如果在线环境提供 v3 工具，图片生成优先使用 `text2image_v3` / `image2image_v3`；否则使用通用工具名。
+- 图片类任务默认使用 4.7 模型的 2k 版。
+- 视频类任务默认使用 `seedance2.0fast_vip`。
+- 如用户明确指定图片或视频模型版本，按用户指定执行，不再套用对应默认模型。
 - 不硬编码本地 Dreamina CLI 模型名、账号命令或任务查询命令。
 - 当工具面板提供商业摄影、电商主图、产品广告、竖屏短视频、高清输出等预设时，优先选择最贴近场景的预设。
 
@@ -58,6 +61,8 @@
 | 产品图 / 参考图 | 否 | 有图则锁定 SKU 身份；无图则先生成产品母图 |
 | 电商预设 | 否 | 默认 `amazon_9_images_10s_video` |
 | 平台 | 否 | 随预设自动设置 |
+| 图片模型 | 否 | 默认 4.7 模型的 2k 版；用户指定模型版本时按指定 |
+| 视频模型 | 否 | 默认 `seedance2.0fast_vip`；用户指定模型版本时按指定 |
 | 图片比例 | 否 | 商品图默认 1:1，详情页默认 3:4 或 4:5 |
 | 视频比例 | 否 | 默认 9:16 |
 | 视频时长 | 否 | 默认 10 秒，可在 4-15 秒内调整 |
@@ -96,13 +101,13 @@
 ### 4.5.2 任务清单模板
 
 ```Markdown
-| job_id | SKU | target | tool | depends_on | status | quality_gate |
-|---|---|---|---|---|---|---|
-| SKU01-BASE | SKU01 | 产品母图/身份参考 | text2image_v3 或 用户上传图 |  | planned | 产品身份锁 |
-| SKU01-IMG01 | SKU01 | 白底主图 | image2image_v3 | SKU01-BASE | planned | EC-I1/EC-I3 |
-| SKU01-IMG04 | SKU01 | 微距细节图 | image2image_v3 | SKU01-BASE | planned | EC-I1/EC-I5 |
-| SKU01-VID01 | SKU01 | 10 秒视频 | multi_modal2video | SKU01-IMG01, SKU01-IMG04, SKU01-IMG05, SKU01-IMG08 | planned | EC-V1/EC-V3 |
-| SKU01-FINAL | SKU01 | 最终成片 | video_editor | SKU01-VID01 | planned | EC-V4 |
+| job_id | SKU | target | tool | model | depends_on | status | quality_gate |
+|---|---|---|---|---|---|---|---|
+| SKU01-BASE | SKU01 | 产品母图/身份参考 | text2image_v3 或 用户上传图 | 4.7 模型 2k 版 |  | planned | 产品身份锁 |
+| SKU01-IMG01 | SKU01 | 白底主图 | image2image_v3 | 4.7 模型 2k 版 | SKU01-BASE | planned | EC-I1/EC-I3 |
+| SKU01-IMG04 | SKU01 | 微距细节图 | image2image_v3 | 4.7 模型 2k 版 | SKU01-BASE | planned | EC-I1/EC-I5 |
+| SKU01-VID01 | SKU01 | 10 秒视频 | multi_modal2video | seedance2.0fast_vip | SKU01-IMG01, SKU01-IMG04, SKU01-IMG05, SKU01-IMG08 | planned | EC-V1/EC-V3 |
+| SKU01-FINAL | SKU01 | 最终成片 | video_editor |  | SKU01-VID01 | planned | EC-V4 |
 ```
 
 ### 4.5.3 并发规则
@@ -214,6 +219,7 @@
 
 每个槽位都单独写提示词，必须包含：
 
+- 图片模型：默认 4.7 模型的 2k 版；用户指定模型版本时按指定。
 - 产品身份锁。
 - 当前槽位目的。
 - 构图、背景、灯光、比例。
@@ -229,6 +235,7 @@
 默认视频提示词：
 
 ```text
+模型设置: seedance2.0fast_vip；用户指定视频模型版本时按用户指定。
 使用 @图片1 作为产品身份参考，@图片2 作为微距细节参考，@图片3 作为佩戴比例参考，@图片4 作为礼盒/场景参考，生成 10 秒 9:16 高端珠宝电商短视频。
 0-2s 微距推进，展示主石、金属反射和镶嵌细节。
 2-4s 产品轻微环绕或光线扫过，结构保持不变。
@@ -309,11 +316,12 @@ Amazon 默认输出：
 - 禁止变化:
 
 ## 图片物料
-| 序号 | 物料 | 工具链 | 状态 | 备注 |
-|---|---|---|---|---|
+| 序号 | 物料 | 工具链 | 模型 | 状态 | 备注 |
+|---|---|---|---|---|---|
 
 ## 视频物料
 - 工具链:
+- 模型:
 - 使用参考图:
 - 时长/比例:
 - 镜头脚本:

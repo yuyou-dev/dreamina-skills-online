@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-06-13
+
+- Added global default model rules across installable skills:
+  - video tasks default to `seedance2.0fast_vip`;
+  - image tasks default to the 4.7 model 2k version;
+  - user-specified model versions override these defaults.
+- Added model fields to batch planning and execution package templates.
+
 ## 2026-06-10
 
 - Enriched `JewelryDesignSkills.md` with high-density jewelry prompt fields:

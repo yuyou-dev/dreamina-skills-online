@@ -14,6 +14,7 @@
 | `target` | 当前任务要产出的内容 |
 | `depends_on` | 依赖的上游任务；无依赖则为空 |
 | `tool` | 即梦在线工具名 |
+| `model` | 模型版本；图片默认 4.7 模型 2k 版，视频默认 `seedance2.0fast_vip`，用户指定版本时按用户指定 |
 | `input_refs` | 输入参考图、脚本、关键帧或上游结果 |
 | `status` | `planned`、`running`、`done`、`failed`、`retrying` |
 | `retry_count` | 重试次数 |
@@ -86,6 +87,16 @@
 
 如果在线环境限制并发，则按平台上限执行，但仍保留完整任务清单和数量检查。
 
+默认模型建议：
+
+| 任务类型 | 默认模型 |
+|---|---|
+| 图片生成 | 4.7 模型 2k 版 |
+| 图片改图 / 参考图变体 | 4.7 模型 2k 版 |
+| 视频生成 / 视频分段 | `seedance2.0fast_vip` |
+
+用户明确指定模型版本时，按用户指定写入 `model` 字段。
+
 ## 5. 分批执行
 
 大批量任务应分批，而不是一次性把所有任务塞给工具。
@@ -133,8 +144,8 @@
 - batch_size:
 
 ## 任务清单
-| job_id | target | tool | depends_on | status | retry_count | quality_gate |
-|---|---|---|---|---|---|---|
+| job_id | target | tool | model | depends_on | status | retry_count | quality_gate |
+|---|---|---|---|---|---|---|---|
 ```
 
 如果任务链有最终合成步骤，例如电商视频或脱口秀视频，最终合成任务必须单独列为一个 `job_id`，并依赖所有必要上游素材。

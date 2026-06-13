@@ -43,6 +43,8 @@
 | 具体生成 skill | 否 | 默认由任务类型推断，例如珠宝设计、电商素材、脱口秀视频 |
 | 输入素材 | 否 | 有素材则列入依赖；无素材则规划母图/角色图/设计 brief |
 | 预设 | 否 | 根据任务类型推断，例如 Amazon 9 图 + 10 秒视频 |
+| 图片模型 | 否 | 默认 4.7 模型的 2k 版；用户指定模型版本时按指定 |
+| 视频模型 | 否 | 默认 `seedance2.0fast_vip`；用户指定模型版本时按指定 |
 | 质量优先级 | 否 | 默认质量优先、速度兼顾 |
 | 并发上限 | 否 | 图片默认 4-6，视频默认 2-4，最终拼接默认 1 |
 | 批次大小 | 否 | 按总量自动计算 |
@@ -109,6 +111,7 @@
 | `group_id` | SKU、设计系列、视频项目或平台组 |
 | `target` | 当前任务产物 |
 | `tool` | 即梦工具或第二个 skill |
+| `model` | 模型版本；图片任务默认 4.7 模型 2k 版，视频任务默认 `seedance2.0fast_vip`，用户指定时按用户指定 |
 | `depends_on` | 上游依赖 |
 | `input_refs` | 输入素材、脚本、母图、设计 brief |
 | `batch_id` | 所属批次 |
@@ -121,8 +124,8 @@
 
 ```Markdown
 ## 执行 Manifest
-| job_id | group_id | target | tool/skill | depends_on | batch_id | parallel_group | status | quality_gate |
-|---|---|---|---|---|---|---|---|---|
+| job_id | group_id | target | tool/skill | model | depends_on | batch_id | parallel_group | status | quality_gate |
+|---|---|---|---|---|---|---|---|---|---|
 ```
 
 ## 五、依赖链规则
@@ -200,6 +203,16 @@
 
 若平台限制并发，按平台限制执行，但 manifest 不变。
 
+### 7.4 默认模型
+
+| 任务类型 | 默认模型 |
+|---|---|
+| 图片生成、图片改图、关键帧、封面图 | 4.7 模型 2k 版 |
+| 视频生成、视频分段、商品短视频 | `seedance2.0fast_vip` |
+| `video_editor` 最终拼接 | 不指定生成模型，按工具默认拼接 |
+
+用户明确指定图片或视频模型版本时，按用户指定写入所有相关 job 的 `model` 字段。
+
 ## 八、重试策略
 
 失败项不能丢失。
@@ -253,11 +266,12 @@
 - concurrency:
 
 ## 本批任务
-| job_id | target | input_refs | tool | depends_on | quality_gate |
-|---|---|---|---|---|---|
+| job_id | target | input_refs | tool | model | depends_on | quality_gate |
+|---|---|---|---|---|---|---|
 
 ## 执行要求
 - 保留 job_id。
+- 保留 model；图片任务默认 4.7 模型 2k 版，视频任务默认 `seedance2.0fast_vip`，用户指定版本时按用户指定。
 - 不改变数量。
 - 完成后回填 status。
 - 失败项保留原编号重试。
@@ -281,7 +295,7 @@
 ```Markdown
 requested_count: N 个 design_id
 第一层: 设计矩阵生成
-第二层: 主设计图并发生成，4-6 首批，后续 6-10
+第二层: 主设计图默认使用 4.7 模型 2k 版并发生成，4-6 首批，后续 6-10
 第三层: 质量检查和失败重试
 第四层: 可选细节图/电商素材移交
 ```
@@ -291,9 +305,9 @@ requested_count: N 个 design_id
 ```Markdown
 requested_count: SKU 数 × (9 图片 + 1 视频 + 1 文案)
 第一层: 每个 SKU 的身份锁/母图
-第二层: 每个 SKU 的 9 个图片槽位并发
+第二层: 每个 SKU 的 9 个图片槽位默认使用 4.7 模型 2k 版并发
 第三层: 选择主图/微距/佩戴/礼盒作为视频参考
-第四层: 每 SKU 生成视频
+第四层: 每 SKU 默认使用 seedance2.0fast_vip 生成视频
 第五层: video_editor 整理最终视频
 ```
 
@@ -303,8 +317,8 @@ requested_count: SKU 数 × (9 图片 + 1 视频 + 1 文案)
 requested_count: confirmed_segment_count + 1 final_video
 第一层: 角色分析
 第二层: 脚本生成并等待用户确认
-第三层: 关键帧生成
-第四层: 分段视频 2-4 并发
+第三层: 关键帧默认使用 4.7 模型 2k 版生成
+第四层: 分段视频默认使用 seedance2.0fast_vip，2-4 并发
 第五层: video_editor 拼接完整视频
 ```
 
@@ -332,12 +346,12 @@ requested_count: confirmed_segment_count + 1 final_video
 |---|---|---|---|---|
 
 ## 执行 Manifest
-| job_id | group_id | target | tool/skill | depends_on | batch_id | parallel_group | status | quality_gate |
-|---|---|---|---|---|---|---|---|---|
+| job_id | group_id | target | tool/skill | model | depends_on | batch_id | parallel_group | status | quality_gate |
+|---|---|---|---|---|---|---|---|---|---|
 
 ## 当前批次执行包
-| job_id | target | input_refs | tool | depends_on | quality_gate |
-|---|---|---|---|---|---|
+| job_id | target | input_refs | tool | model | depends_on | quality_gate |
+|---|---|---|---|---|---|---|
 
 ## 质量门
 - 数量:
