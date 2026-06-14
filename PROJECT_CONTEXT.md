@@ -8,6 +8,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 
 - a jewelry ecommerce material skill;
 - a professional jewelry design skill;
+- a choice-driven jewelry design evolution skill;
 - a talk-show video skill;
 - a standalone large-batch execution skill.
 
@@ -126,6 +127,16 @@ Purpose:
 - Shopify/Tmall/Xiaohongshu presets;
 - image, copy, video, quality checks.
 - default image generation on the 4.7 model 2k version and default video generation on `seedance2.0fast_vip`.
+
+### 珠宝设计进化Skill.md
+
+Purpose:
+
+- choice-driven jewelry evolution;
+- base image structure lock;
+- 4 / 8 branch evolution matrix;
+- element, morphology, style, material, fidelity, intensity, and fusion controls;
+- selected result can become the next-round base.
 
 ### 脱口秀视频Skill.md
 

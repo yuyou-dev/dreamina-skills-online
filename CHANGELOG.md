@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-06-14
+
+- Added `珠宝设计进化Skill.md` as a standalone installable Dreamina skill.
+- The new skill turns jewelry evolution theory into a choice-driven workflow:
+  - base image structure lock;
+  - selectable fidelity, intensity, fusion strategy, element theme, morphology, style, and material;
+  - 4 / 8 candidate evolution matrix;
+  - candidate selection and next-round evolution.
+- Updated project indexes to list the new active skill.
+
 ## 2026-06-13
 
 - Added global default model rules across installable skills:

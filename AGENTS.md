@@ -21,6 +21,7 @@ Use `CHAIN_BATCH_EXECUTION.md` and `presets/README.md` only as maintenance aids.
 
 - Installable skills:
   - `JewelryDesignSkills.md`
+  - `珠宝设计进化Skill.md`
   - `珠宝电商素材Skill.md`
   - `脱口秀视频Skill.md`
   - `大批量执行Skill.md`
