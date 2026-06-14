@@ -136,7 +136,7 @@ Purpose:
 - base image structure lock;
 - 4 / 8 branch evolution matrix;
 - element, morphology, style, material, fidelity, intensity, and fusion controls;
-- one-round delivery by default, with a reusable next-round starter brief instead of automatic continuation.
+- one-pass delivery with candidate review, finalization suggestions, and no follow-up handoff.
 
 ### 脱口秀视频Skill.md
 
