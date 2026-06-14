@@ -19,7 +19,7 @@
 | 文件 | 技能名称 | 用途 | 状态 |
 |---|---|---|---|
 | [JewelryDesignSkills.md](JewelryDesignSkills.md) | JewelryDesignSkills | 专业珠宝设计、批量出款、系列设计、参考图变体、材质矩阵 | active |
-| [珠宝设计进化Skill.md](珠宝设计进化Skill.md) | 珠宝设计进化 | 上传底座或描述雏形后，用选择题生成 4/8 个进化候选，并支持选中方向继续下一轮 | active |
+| [珠宝设计进化Skill.md](珠宝设计进化Skill.md) | 珠宝设计进化 | 上传底座或描述雏形后，用选择题生成单轮 4/8 个进化候选，并输出可手动复用的下一轮启动包 | active |
 | [珠宝电商素材Skill.md](珠宝电商素材Skill.md) | 珠宝电商素材Skill | 珠宝产品 + 简单描述生成全套电商图、文案和视频 | active |
 | [脱口秀视频Skill.md](脱口秀视频Skill.md) | 脱口秀视频Skill | 上传角色 + 一句话主题，确认脚本后生成并拼接脱口秀视频 | active |
 | [大批量执行Skill.md](大批量执行Skill.md) | 大批量执行Skill | 大型项目拆解、任务清单、分批、并发、数量校验和执行包输出 | active |

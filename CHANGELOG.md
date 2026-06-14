@@ -7,7 +7,11 @@
   - base image structure lock;
   - selectable fidelity, intensity, fusion strategy, element theme, morphology, style, and material;
   - 4 / 8 candidate evolution matrix;
-  - candidate selection and next-round evolution.
+  - candidate review and reusable next-round starter briefs.
+- Revised `珠宝设计进化Skill.md` after online testing:
+  - removed automatic second-round continuation wording;
+  - changed the end state to one-round delivery with candidate review;
+  - added reusable next-round starter briefs for manual follow-up runs.
 - Updated project indexes to list the new active skill.
 
 ## 2026-06-13
