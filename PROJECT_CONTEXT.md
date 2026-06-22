@@ -112,11 +112,18 @@ Recent direction:
 - richer prompt density;
 - preserved main stone/color/cut/proportion;
 - default image generation on the 4.7 model 2k version unless the user specifies another model;
+- structured prompt specs that separate task goal, input role, invariants, allowed changes, construction, material craft, rendering, and negative constraints;
+- white-background single-product output as the default for jewelry style design tasks;
 - category mix;
-- three embedded style presets:
+- embedded style and craft presets:
   - saturated high jewelry suite;
   - light gold daily fine jewelry;
-  - Japanese antique fine jewelry.
+  - Japanese antique fine jewelry;
+  - gold filigree craft;
+  - chiseled relief gold;
+  - heritage matte 24K gold;
+  - 3D hard gold;
+  - Italian antique high jewelry.
 
 ### 珠宝电商素材Skill.md
 
@@ -127,6 +134,7 @@ Purpose:
 - Shopify/Tmall/Xiaohongshu presets;
 - image, copy, video, quality checks.
 - default image generation on the 4.7 model 2k version and default video generation on `seedance2.0fast_vip`.
+- slot-level prompt specs that preserve product identity while changing only the current ecommerce slot requirement.
 
 ### 珠宝设计进化Skill.md
 
@@ -137,6 +145,7 @@ Purpose:
 - 4 / 8 branch evolution matrix;
 - element, morphology, style, material, fidelity, intensity, and fusion controls;
 - one-pass delivery with candidate review, finalization suggestions, and no follow-up handoff.
+- structured candidate prompt specs with explicit preserve/change/rendering/negative fields.
 
 ### 脱口秀视频Skill.md
 

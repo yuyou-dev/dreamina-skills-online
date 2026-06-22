@@ -31,6 +31,7 @@
 | [AGENTS.md](AGENTS.md) | 后续 Codex/agent 接手本仓库时的工作规则 | 否 |
 | [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | 背景、约束、设计原则、当前方向 | 否 |
 | [CHANGELOG.md](CHANGELOG.md) | 记录重要迭代和提交主题 | 否 |
+| [JEWELRY_PROMPT_RESEARCH.md](JEWELRY_PROMPT_RESEARCH.md) | 珠宝提示词研究备忘，整合设计师提示词与 OpenAI 图像提示词范式 | 否 |
 | [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) | 链式调用、批量、并发的共享维护备忘 | 否 |
 | [presets/README.md](presets/README.md) | 未来预设扩展的命名和字段约定 | 否 |
 | [LICENSE](LICENSE) | MIT License | 否 |
@@ -44,6 +45,7 @@
 - 对链式调用要写明“下一步工具”和“输入素材”，避免停在单步图、脚本、分段素材或计划摘要。
 - 大批量任务要先建立 manifest，保证数量守恒、依赖完整、失败项可重试。
 - 对珠宝 skill，重点保留主石/元素/草稿特征，补充品类配比、宝石排列、构图密度、画面表现和负向约束。
+- 款式设计类珠宝任务默认输出白底或极浅灰白背景的单件产品图；只有用户明确要求电商场景、佩戴图、包装图、广告海报或生活方式图时才改变背景。
 
 ## Recommended Workflow
 

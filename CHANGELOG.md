@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-06-23
+
+- Added `JEWELRY_PROMPT_RESEARCH.md` to summarize designer-authored jewelry prompt patterns and OpenAI image prompting patterns for maintainers.
+- Strengthened jewelry prompt construction across installable skills:
+  - added structured prompt specs for task goal, input role, preserve/change rules, construction, material craft, rendering, and negative constraints;
+  - made white or very light gray single-product backgrounds the default for jewelry style design tasks unless the user requests ecommerce, campaign, wearing, packaging, or scene backgrounds;
+  - added craft/style rules for gold filigree, chiseled relief gold, heritage matte 24K gold, 3D hard gold, and Italian antique high jewelry;
+  - added ecommerce slot-level prompt templates that preserve product identity while changing only slot-specific presentation.
+- Started local Codex plugin packaging for `dremina-skill-market` as an application-level Dreamina skill market that can pair with the existing `dreamina` CLI plugin.
+
 ## 2026-06-14
 
 - Added `珠宝设计进化Skill.md` as a standalone installable Dreamina skill.
