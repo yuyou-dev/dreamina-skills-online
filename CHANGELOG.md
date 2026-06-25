@@ -15,7 +15,12 @@
   - explicitly forbids falling back to 5.0 / latest / auto-upgraded image models when the user has not specified a model;
   - requires `seedream4.7` / 4.7 to be selected in image tool parameters;
   - treats storyboard images as intermediate artifacts when the user requested video;
-  - caps each Seedance 2.0 generation task at 15 seconds and requires longer videos to be split into segments.
+  - caps each Seedance 2.0 generation task at 15 seconds;
+  - makes single-video generation the default and treats 9 / 16 / 25 panel storyboards as rhythm references, not automatic multi-video splits.
+- Refined the cinematic skill's storyboard strategy:
+  - panel count now represents rhythm density and visual guidance, not video duration;
+  - 9 / 16 / 25 panel storyboards can drive one high-density Seedance video;
+  - multi-video generation is only used when the user explicitly asks for multi-segment output or post-production assembly.
 
 ## 2026-06-23
 
