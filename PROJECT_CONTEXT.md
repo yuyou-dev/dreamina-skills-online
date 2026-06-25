@@ -10,6 +10,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 - a professional jewelry design skill;
 - a choice-driven jewelry design evolution skill;
 - a talk-show video skill;
+- a cinematic storyboard and Seedance video generation skill;
 - a standalone large-batch execution skill.
 
 ## Dreamina Online Constraints
@@ -47,6 +48,7 @@ Default model policy:
 - Video tasks use `seedance2.0fast_vip` by default.
 - Image tasks use the 4.7 model 2k version by default.
 - If the user explicitly specifies a model version, use the user-specified version instead of the default.
+- `影视镜头生成Skill.md` is an explicit exception: image tasks use `seedream4.7` by default and video tasks use `seedance2.0mini` by default.
 
 ## Design Principles
 
@@ -157,6 +159,17 @@ Purpose:
 - `seedance2.0fast_vip` segmented generation;
 - default keyframe/cover image generation on the 4.7 model 2k version;
 - `video_editor` final assembly.
+
+### 影视镜头生成Skill.md
+
+Purpose:
+
+- cinematic storyboard reference image generation;
+- shot language planning for ads, drama, product videos, interior walkthroughs, food documentary, action chase, POV, sci-fi reveal, and social UGC;
+- default image generation on `seedream4.7`;
+- default video generation on `seedance2.0mini`;
+- quality gates for brief intake, storyboard prompt, storyboard image, Seedance prompt, video output, and final delivery;
+- repair prompts for storyboard-grid capture, identity drift, product deformation, random camera motion, excessive action, malformed text, discontinuity, and low-light failure.
 
 ### 大批量执行Skill.md
 

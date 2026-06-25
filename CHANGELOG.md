@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-06-25
+
+- Added `影视镜头生成Skill.md` as a standalone installable Dreamina skill.
+- The new skill turns cinematic and commercial video briefs into a complete chain:
+  - input normalization and task routing;
+  - 2-3 creative directions with a stable default route;
+  - storyboard reference image prompts and QA;
+  - Seedance prompt construction and video generation;
+  - video QA, failure-type repair, and final `video_editor` delivery.
+- Embedded cinematic shot language, storyboard layouts, reference-image strategies, quality gates, repair prompts, and scenario templates.
+- Set the skill-specific defaults to image model `seedream4.7` and video model `seedance2.0mini`; user-specified model versions still override defaults.
+
 ## 2026-06-23
 
 - Added `JEWELRY_PROMPT_RESEARCH.md` to summarize designer-authored jewelry prompt patterns and OpenAI image prompting patterns for maintainers.
