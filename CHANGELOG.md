@@ -11,6 +11,11 @@
   - video QA, failure-type repair, and final `video_editor` delivery.
 - Embedded cinematic shot language, storyboard layouts, reference-image strategies, quality gates, repair prompts, and scenario templates.
 - Set the skill-specific defaults to image model `seedream4.7` and video model `seedance2.0mini`; user-specified model versions still override defaults.
+- Tightened `影视镜头生成Skill.md` after online testing:
+  - explicitly forbids falling back to 5.0 / latest / auto-upgraded image models when the user has not specified a model;
+  - requires `seedream4.7` / 4.7 to be selected in image tool parameters;
+  - treats storyboard images as intermediate artifacts when the user requested video;
+  - caps each Seedance 2.0 generation task at 15 seconds and requires longer videos to be split into segments.
 
 ## 2026-06-23
 

@@ -1,19 +1,21 @@
 ---
 技能名称: 影视镜头生成Skill
-技能描述: 影视分镜与 Seedance 视频生成复合技能。用于广告片、剧情短片、产品广告、空间漫游、食物纪录片、动作追逐、武侠动作、POV 探索、科幻揭示、口播/UGC、图生视频、分镜图转视频、多参考图转视频等任务。用户给一句影视镜头需求、上传参考图或要求生成连续镜头时，先生成可控分镜参考图，再默认使用 seedance2.0mini 生成视频，最后进行视频质量检查与必要修复。图片默认模型为 seedream4.7；用户明确指定图片或视频模型版本时按用户指定执行。
+技能描述: 影视分镜与 Seedance 视频生成复合技能。用于广告片、剧情短片、产品广告、空间漫游、食物纪录片、动作追逐、武侠动作、POV 探索、科幻揭示、口播/UGC、图生视频、分镜图转视频、多参考图转视频等任务。用户给一句影视镜头需求、上传参考图或要求生成连续镜头时，先生成可控分镜参考图，再默认使用 seedance2.0mini 生成视频，最后进行视频质量检查与必要修复。图片默认模型必须选择 seedream4.7 / 4.7，不使用 5.0、Seedream 5.0、最新默认模型或自动升级模型；用户明确指定图片或视频模型版本时按用户指定执行。
 ---
 
 技能内容：
 
 分为**交互阶段**和**执行阶段**。交互阶段把用户需求规范化为影视镜头 brief；执行阶段按“分镜参考图 → 分镜 QA → Seedance 视频生成 → 视频 QA / 修复 → 最终交付”的链路执行。
 
-链式调用要求：每个复杂任务都必须写明下一步工具和输入素材。分镜图未通过质量检查时，不得进入视频生成。视频生成失败时按失败类型修复，不得无诊断重跑。
+链式调用要求：每个复杂任务都必须写明下一步工具和输入素材。用户要求视频时，分镜图只是中间参考素材，不是最终交付；分镜图通过 QA 后必须继续生成 Seedance prompt 并调用视频工具。分镜图未通过质量检查时，不得进入视频生成。视频生成失败时按失败类型修复，不得无诊断重跑。
 
 默认模型要求：
 
-- 图片生成默认使用 `seedream4.7`。
+- 图片生成默认使用 `seedream4.7` / 4.7，必须在图片工具参数中显式选择该模型。
 - 视频生成默认使用 `seedance2.0mini`。
 - 用户明确指定图片模型或视频模型版本时，按用户指定执行。
+- 不得把图片模型自动升级为 5.0、Seedream 5.0、最新模型或平台智能默认模型，除非用户明确指定 5.0。
+- Seedance 2.0 系列单次视频生成最长 15 秒；超过 15 秒必须拆成多个 5-8 秒或不超过 15 秒的分段，再用 `video_editor` 拼接。
 
 ## 一、触发范围
 
@@ -37,8 +39,8 @@
 |---|---|---|
 | `generate_form_for_info_collection` | 当核心主体、目标或必要参考素材缺失且无法推断时收集信息 | 表单完成后进入输入规范化 |
 | `creation_agent_search` | 可选：搜索公开风格、产品类别、场景参考或行业视觉语汇 | 搜索结果只作为风格和镜头参考，不编造事实 |
-| `text2image` / `text2image_v3` | 无上传图时生成分镜参考图、关键帧、产品/角色母图 | 输出通过分镜 QA 后进入视频 prompt |
-| `image2image` / `image2image_v3` | 基于上传角色、产品、空间或草图生成分镜参考图 | 输出通过分镜 QA 后进入视频 prompt |
+| `text2image` | 无上传图时生成分镜参考图、关键帧、产品/角色母图 | 输出通过分镜 QA 后进入视频 prompt |
+| `image2image` | 基于上传角色、产品、空间或草图生成分镜参考图 | 输出通过分镜 QA 后进入视频 prompt |
 | `image2video` | 单张分镜图、关键帧或产品图生成短视频 | 适合 5-8 秒、动作较少、主体单一任务 |
 | `multi_frame2video` | 多张关键帧按起承转合生成连续视频 | 适合明确 start / middle / end 或多关键帧任务 |
 | `start_end2video` | 控制开始帧到结束帧的强连续变化 | 适合空间推拉、产品开合、情绪转折、镜头揭示 |
@@ -48,7 +50,8 @@
 
 在线版适配：
 
-- 图片工具如提供 v3 版本，优先使用 `text2image_v3` / `image2image_v3`；工具界面不区分时使用通用工具名。
+- 图片工具必须显式选择 `seedream4.7` / 4.7。不要选择 5.0、Seedream 5.0、最新默认模型、自动推荐模型或会自动升级到 5.0 的图片入口。
+- 如工具界面存在多个图片入口，只能使用能明确选择 `seedream4.7` / 4.7 的 `text2image` / `image2image` 入口；如果某个 v3 入口默认绑定 5.0 或无法选择 4.7，则不得使用该入口。
 - 视频工具默认模型填写 `seedance2.0mini`；若界面展示名不同，选择最接近 Seedance 2.0 Mini 的视频模型。
 - 不输出本地命令、任务查询命令或下载命令。
 
@@ -71,7 +74,7 @@
 | 主体身份锁 | 是 | 自动生成 | 基于素材或描述提取外观、产品形态、材质、颜色、比例 |
 | 镜头需求 | 否 | 稳健镜头组合 | 用户指定运镜时遵循；高风险运镜需加强约束 |
 | 风险点 | 否 | 自动识别 | 产品变形、角色漂移、低光、快速动作、文本、logo、复杂转场 |
-| 输出目标 | 否 | 分镜图 + 视频 + QA 摘要 | 用户只要 prompt 时仅输出 prompt 与 QA |
+| 输出目标 | 否 | 完整视频 + 过程分镜图 + QA 摘要 | 用户只要 prompt 时仅输出 prompt 与 QA；用户要求视频时不得停在分镜图 |
 | 图片模型 | 否 | `seedream4.7` | 用户指定时按指定 |
 | 视频模型 | 否 | `seedance2.0mini` | 用户指定时按指定 |
 
@@ -99,6 +102,7 @@
 | aspect_ratio |  |
 | image_model | seedream4.7 |
 | video_model | seedance2.0mini |
+| single_video_max_duration | 15 秒 |
 | reference_mode |  |
 | identity_lock |  |
 | style |  |
@@ -168,11 +172,13 @@
 | 单关键帧 | 单镜头图生视频、产品慢镜头 | 5-8 秒 | 适合主体稳定、动作简单 |
 | 3 格 | 起承转、剧情短镜头、科幻揭示 | 8-12 秒 | 默认稳健布局 |
 | 4 格 | 空间漫游、产品广告、情绪递进 | 10-15 秒 | 平衡细节与连续性 |
-| 6 格 | 食物过程、完整动作、广告节奏 | 12-18 秒 | 每格只承载一个动作 beat |
-| 3x3 | 复杂广告、追逐、压力测试 | 15-25 秒 | 风险高；必要时拆成多段视频 |
+| 6 格 | 食物过程、完整动作、广告节奏 | 12-15 秒 | 每格只承载一个动作 beat；超过 15 秒必须拆段 |
+| 3x3 | 复杂广告、追逐、压力测试 | 总时长 15-25 秒时必须拆段 | 风险高；拆成多个 5-8 秒分段，单个 Seedance 任务不得超过 15 秒 |
 
 分镜图规则：
 
+- 分镜布局可以规划完整成片，但任何单次 Seedance 2.0 视频生成不得超过 15 秒。
+- 规划时长超过 15 秒时，把分镜拆为 `CM-V01`、`CM-V02` 等多个视频分段，每段 5-8 秒或不超过 15 秒。
 - 每格只表达一个清晰 beat，不把多个动作塞进同一格。
 - 保持主体、环境、光线、色彩连续。
 - 不生成文字说明、字幕、台词框、水印、界面元素。
@@ -237,20 +243,20 @@ High-quality video-ready storyboard reference image, {resolution}, {aspect_ratio
 
 ```text
 下一步工具: text2image
-模型: seedream4.7；用户指定图片模型版本时按用户指定
+模型: seedream4.7 / 4.7；用户指定图片模型版本时按用户指定；不得使用 5.0 或自动升级模型
 输入素材: 规范化 brief + 分镜参考图 prompt
 输出: SB-REF-01 分镜参考图
-下一步: 对 SB-REF-01 执行 storyboard_image QA
+下一步: 对 SB-REF-01 执行 storyboard_image QA；通过后立即生成 Seedance prompt；`seedance_prompt >= 85` 后调用视频工具；不得把 SB-REF-01 当作最终交付
 ```
 
 有上传主体图、产品图、空间图或草图：
 
 ```text
 下一步工具: image2image
-模型: seedream4.7；用户指定图片模型版本时按用户指定
+模型: seedream4.7 / 4.7；用户指定图片模型版本时按用户指定；不得使用 5.0 或自动升级模型
 输入素材: 用户上传参考图 + 规范化 brief + 分镜参考图 prompt
 输出: SB-REF-01 分镜参考图
-下一步: 对 SB-REF-01 执行 storyboard_image QA
+下一步: 对 SB-REF-01 执行 storyboard_image QA；通过后立即生成 Seedance prompt；`seedance_prompt >= 85` 后调用视频工具；不得把 SB-REF-01 当作最终交付
 ```
 
 如分镜图清晰但分辨率不足：
@@ -259,7 +265,7 @@ High-quality video-ready storyboard reference image, {resolution}, {aspect_ratio
 下一步工具: image_super_resolution
 输入素材: 已通过 QA 的 SB-REF-01
 输出: SB-REF-01-HQ
-下一步: 使用 SB-REF-01-HQ 作为视频参考图
+下一步: 使用 SB-REF-01-HQ 作为视频参考图，立即进入 Seedance prompt QA 和视频工具调用
 ```
 
 ### 6.4 多关键帧生成链
@@ -268,14 +274,14 @@ High-quality video-ready storyboard reference image, {resolution}, {aspect_ratio
 
 ```text
 下一步工具: text2image 或 image2image
-模型: seedream4.7；用户指定图片模型版本时按用户指定
+模型: seedream4.7 / 4.7；用户指定图片模型版本时按用户指定；不得使用 5.0 或自动升级模型
 输入素材: 规范化 brief + 关键帧 prompt + 可选用户参考图
 输出:
 - KF-01 起始关键帧
 - KF-02 中段关键帧
 - KF-03 结束关键帧
 质量门: 每张关键帧执行 storyboard_image QA，单张低于 80 分则重做对应 KF-xx
-下一步: 全部 KF-xx 通过后，作为 multi_frame2video 输入
+下一步: 全部 KF-xx 通过后，立即生成 Seedance prompt；`seedance_prompt >= 85` 后调用 `multi_frame2video`
 ```
 
 关键帧 prompt 必须写明：
@@ -292,13 +298,13 @@ High-quality video-ready storyboard reference image, {resolution}, {aspect_ratio
 
 ```text
 下一步工具: text2image 或 image2image
-模型: seedream4.7；用户指定图片模型版本时按用户指定
+模型: seedream4.7 / 4.7；用户指定图片模型版本时按用户指定；不得使用 5.0 或自动升级模型
 输入素材: 规范化 brief + 起止帧 prompt + 可选用户参考图
 输出:
 - START-REF 起始状态图
 - END-REF 结束状态图
 质量门: START-REF 与 END-REF 都执行 storyboard_image QA，任一低于 80 分则重做对应参考图
-下一步: 两张图通过后，作为 start_end2video 输入
+下一步: 两张图通过后，立即生成起止帧 Seedance prompt；`seedance_prompt >= 85` 后调用 `start_end2video`
 ```
 
 起止帧 prompt 必须写明：
@@ -513,6 +519,8 @@ Do not change identity, product shape, material, logo placement if provided, roo
 - `seedance_prompt >= 85` 才能调用 `image2video`、`multi_frame2video`、`multi_modal2video` 或 `start_end2video`。
 - `seedance_prompt < 85` 时必须重写 Seedance prompt，不调用视频工具。
 - 视频任务的输入素材必须包含通过 QA 的参考图和通过 QA 的 Seedance prompt。
+- Seedance 2.0 系列单次生成时长不得超过 15 秒。Seedance prompt 中的 `{duration_seconds}` 必须小于或等于 15；如用户要求 16 秒或更长，先拆分为多个视频分段 prompt。
+- 用户要求生成视频时，`seedance_prompt >= 85` 后必须继续调用视频工具；不得只输出分镜图、分镜 prompt 或 Seedance prompt。
 
 ### 9.5 视频工具调用
 
@@ -522,6 +530,7 @@ Do not change identity, product shape, material, logo placement if provided, roo
 下一步工具: image2video
 模型: seedance2.0mini；用户指定视频模型版本时按用户指定
 输入素材: SB-REF-01 或 SB-REF-01-HQ + 已通过 seedance_prompt QA 的 Seedance prompt
+时长: 单次不超过 15 秒
 输出: VID-01
 下一步: 对 VID-01 执行 video_output QA
 ```
@@ -532,6 +541,7 @@ Do not change identity, product shape, material, logo placement if provided, roo
 下一步工具: multi_frame2video
 模型: seedance2.0mini；用户指定视频模型版本时按用户指定
 输入素材: KF-01, KF-02, KF-03... + 已通过 seedance_prompt QA 的 Seedance prompt
+时长: 单次不超过 15 秒
 输出: VID-01
 下一步: 对 VID-01 执行 video_output QA
 ```
@@ -542,6 +552,7 @@ Do not change identity, product shape, material, logo placement if provided, roo
 下一步工具: multi_modal2video
 模型: seedance2.0mini；用户指定视频模型版本时按用户指定
 输入素材: Image 1 主体/产品 + Image 2 环境 + Image 3 分镜 + Image 4 可选品牌元素 + 已通过 seedance_prompt QA 的 Seedance prompt
+时长: 单次不超过 15 秒
 输出: VID-01
 下一步: 对 VID-01 执行 video_output QA
 ```
@@ -552,21 +563,23 @@ Do not change identity, product shape, material, logo placement if provided, roo
 下一步工具: start_end2video
 模型: seedance2.0mini；用户指定视频模型版本时按用户指定
 输入素材: START-REF + END-REF + 已通过 seedance_prompt QA 的起止帧 Seedance prompt
+时长: 单次不超过 15 秒
 输出: VID-01
 下一步: 对 VID-01 执行 video_output QA
 ```
 
 ## 十、分段与成片
 
-当时长超过 15 秒、动作复杂、镜头多或用户要求完整广告片时，拆成多个视频段。
+当总时长超过 15 秒、动作复杂、镜头多或用户要求完整广告片时，拆成多个视频段。Seedance 2.0 系列单次视频生成最长 15 秒，不允许创建 16 秒及以上的单个视频任务。
 
 ### 10.1 分段规则
 
-- 每段 5-8 秒最稳健。
+- 每段 5-8 秒最稳健；任何单段都不得超过 15 秒。
 - 每段只处理一个主动作和一个主运镜。
 - 强连续性段落使用 `start_end2video` 或 `multi_frame2video`。
 - 复杂广告可先生成 3-4 个分段，再用 `video_editor` 拼接。
 - 所有分段必须保留统一 identity_lock、环境锁、光线锁和色彩锁。
+- 用户要求 16-30 秒时，默认拆成 2-4 个分段；用户要求更长时继续增加分段，不把总时长写进单个 Seedance 任务。
 
 ### 10.2 Manifest 模板
 
@@ -589,6 +602,7 @@ Do not change identity, product shape, material, logo placement if provided, roo
 - `done_count + failed_count + missing_count = planned_count`。
 - 失败项必须保留原 `job_id`，修复时追加版本号，例如 `CM-V02-R1`。
 - 任何必要分段未完成时，`CM-FINAL` 不得标记完成。
+- `CM-Vxx` 的单段时长必须小于或等于 15 秒；如果 brief 总时长超过 15 秒，增加 `CM-V03`、`CM-V04` 等分段。
 
 ### 10.3 `video_editor` 调用
 
@@ -603,12 +617,13 @@ Do not change identity, product shape, material, logo placement if provided, roo
 - 输出 1 条完整可交付视频
 ```
 
-不得把分段素材列表当作最终交付。用户要求完整视频时，最终必须有 `video_editor` 成片。
+不得把分镜图、分镜 prompt、Seedance prompt 或分段素材列表当作最终交付。用户要求完整视频时，最终必须有通过 `video_output` / `final_delivery` 的视频产物；多段任务必须有 `video_editor` 成片。
 
 单段交付规则：
 
 - 单段 `VID-01` 已通过 `video_output >= 80`，且用户不需要片头、字幕、裁切、拼接或配乐时，可直接进入 `final_delivery` 检查并交付。
 - 需要片头、字幕、裁切、配乐、品牌尾卡、比例适配或多段拼接时，必须进入 `video_editor` 后再交付。
+- 如果当前只生成了 `SB-REF-01` 分镜图，状态必须标记为 `in_progress`，下一步继续 `CM-SEEDANCE-PROMPT` 和 `CM-V01`，不得标记为完成。
 
 ## 十一、质量门
 
@@ -689,6 +704,7 @@ Do not change identity, product shape, material, logo placement if provided, roo
 
 检查：
 
+- 用户要求视频时，已产生 `VID-01` 或 `CM-FINAL`，而不是只产生分镜图。
 - 多段或需要剪辑的任务已调用 `video_editor`，不是只交付分段素材列表。
 - 单段直接交付时，`VID-01` 已通过 `video_output >= 80`，且不需要片头、字幕、裁切、配乐、比例适配或拼接。
 - 所有必要分段都已通过 `video_output >= 80`。
@@ -698,6 +714,13 @@ Do not change identity, product shape, material, logo placement if provided, roo
 - 修复记录清楚，`missing_count = 0`。
 
 未通过时：回到对应失败分段或 `video_editor` 设置修复，不得标记最终交付完成。
+
+中间态处理：
+
+- 只有 `SB-REF-01`：继续生成 `CM-SEEDANCE-PROMPT`。
+- 只有 `CM-SEEDANCE-PROMPT`：继续调用视频工具。
+- 只有 `VID-01` 但用户需要剪辑或多段：继续调用 `video_editor`。
+- 任一中间态都不得输出“已完成”。
 
 ## 十二、失败修复
 
@@ -791,8 +814,10 @@ risk_control: keep motion slow; avoid excessive particles and uncontrolled camer
 
 ```text
 task_type: action_chase
-layout: 3x3 storyboard or split into two 6-8 second segments
-duration: 15-20 seconds
+layout: 3x3 storyboard, split into two 6-8 second Seedance segments when total duration exceeds 15 seconds
+total_duration: 15-20 seconds
+segment_duration: 6-8 seconds each, every Seedance task must be <= 15 seconds
+final_assembly: use video_editor to stitch all approved segments
 camera: side tracking, subtle handheld, brief whip-pan only as transition
 identity_lock: same runner, same outfit, same street direction, same neon rain atmosphere
 risk_control: maintain chase direction; avoid random crowd and unreadable low light
