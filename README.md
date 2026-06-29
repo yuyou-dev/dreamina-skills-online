@@ -13,6 +13,7 @@
 - 珠宝电商图文视频物料生产。
 - 角色脱口秀视频生成。
 - 影视分镜参考图与 Seedance 视频镜头生成。
+- 中文文章小黑怪诞正文配图生成。
 - 大批量任务规划、数量守恒、分批和并发执行。
 
 ## Installable Skills
@@ -24,6 +25,7 @@
 | [珠宝电商素材Skill.md](珠宝电商素材Skill.md) | 珠宝电商素材Skill | 珠宝产品 + 简单描述生成全套电商图、文案和视频 | active |
 | [脱口秀视频Skill.md](脱口秀视频Skill.md) | 脱口秀视频Skill | 上传角色 + 一句话主题，确认脚本后生成并拼接脱口秀视频 | active |
 | [影视镜头生成Skill.md](影视镜头生成Skill.md) | 影视镜头生成Skill | 影视分镜参考图、镜头语言、Seedance 视频生成、视频 QA 与修复 | active |
+| [小黑怪诞正文配图Skill.md](小黑怪诞正文配图Skill.md) | 小黑怪诞正文配图Skill | 中文文章、观点和方法论内容的小黑风格白底手绘正文配图 | active |
 | [大批量执行Skill.md](大批量执行Skill.md) | 大批量执行Skill | 大型项目拆解、任务清单、分批、并发、数量校验和执行包输出 | active |
 
 ## Support Documents

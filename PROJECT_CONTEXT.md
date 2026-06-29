@@ -11,6 +11,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 - a choice-driven jewelry design evolution skill;
 - a talk-show video skill;
 - a cinematic storyboard and Seedance video generation skill;
+- a Xiaohei-style Chinese article illustration skill;
 - a standalone large-batch execution skill.
 
 ## Dreamina Online Constraints
@@ -170,6 +171,17 @@ Purpose:
 - default video generation on `seedance2.0mini`;
 - quality gates for brief intake, storyboard prompt, storyboard image, Seedance prompt, video output, and final delivery;
 - repair prompts for storyboard-grid capture, identity drift, product deformation, random camera motion, excessive action, malformed text, discontinuity, and low-light failure.
+
+### 小黑怪诞正文配图Skill.md
+
+Purpose:
+
+- Chinese article body illustrations;
+- single-concept illustration and article shot-list planning;
+- Ian Xiaohei style adaptation with attribution;
+- 16:9 white-background hand-drawn illustration prompts;
+- recurring Xiaohei IP role, visual DNA, composition types, metaphor invention rules, anti-copy rules, and QA checks;
+- default image generation on the 4.7 model 2k version unless the user specifies another model.
 
 ### 大批量执行Skill.md
 

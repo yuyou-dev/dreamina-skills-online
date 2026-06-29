@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-06-29
+
+- Added `小黑怪诞正文配图Skill.md` as a standalone installable Dreamina skill.
+- Adapted the Ian Xiaohei article-illustration method into a single-file Dreamina workflow:
+  - article digestion and cognitive-anchor extraction;
+  - shot-list planning for one or more body illustrations;
+  - Xiaohei IP rules, visual DNA, composition types, metaphor invention, and anti-copy constraints;
+  - `text2image` / `image2image` generation branches;
+  - QA gates and repair rules for over-formal diagrams, decorative Xiaohei, excessive text, unclear metaphors, and bad Chinese labels.
+- Set the new skill's default image model to the 4.7 model 2k version; user-specified model versions still override the default.
+- Updated project indexes to list the new active skill.
+
 ## 2026-06-25
 
 - Added `影视镜头生成Skill.md` as a standalone installable Dreamina skill.
