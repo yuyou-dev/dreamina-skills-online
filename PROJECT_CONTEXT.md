@@ -12,6 +12,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 - a talk-show video skill;
 - a cinematic storyboard and Seedance video generation skill;
 - a Seedance 2.5 long-form video creation and controlled-editing skill;
+- a Seedance 2.5 extreme-imagination video generation and deep-mutation editing skill;
 - a Xiaohei-style Chinese article illustration skill;
 - a standalone large-batch execution skill.
 
@@ -52,6 +53,7 @@ Default model policy:
 - If the user explicitly specifies a model version, use the user-specified version instead of the default.
 - `影视镜头生成Skill.md` is an explicit exception: image tasks use `seedream4.7` by default and video tasks use `seedance2.0mini` by default.
 - `Seedance2.5创作大师Skill.md` is an explicit exception: video tasks use Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model by default; reference-image tasks use the 4.7 model 2k version by default.
+- `Seedance2.5天马行空Skill.md` is an explicit exception: video tasks use Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model by default; reference-image tasks use the 4.7 model 2k version by default.
 
 ## Design Principles
 
@@ -190,6 +192,24 @@ Purpose:
   - controlled-edit keep/change constraints;
   - multilingual text accuracy;
   - video QA and repair.
+
+### Seedance2.5天马行空Skill.md
+
+Purpose:
+
+- Seedance 2.5 extreme-imagination video generation;
+- 30-second wild visual concepts with a readable throughline;
+- up to 50 reference assets organized as a layered reference star map;
+- deep mutation editing that preserves original subjects, actions, camera motion, and timing while transforming world, material, physics, and atmosphere;
+- default video generation on Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model;
+- reference-image generation on the 4.7 model 2k version unless the user specifies another image model;
+- extreme-scene prompt construction based on:
+  - impossible-rule design;
+  - subject and anchor locking;
+  - L1-L7 reference layering;
+  - 30-second escalation timelines;
+  - controlled surreal physics;
+  - failure-type repair and overload degradation.
 
 ### 小黑怪诞正文配图Skill.md
 

@@ -10,6 +10,9 @@
 - The new skill covers Seedance 2.5 long video creation, multi-reference video, text-to-video, image-to-video, controlled video editing, multilingual text video, QA gates, repair rules, and final delivery.
 - Set the new skill's default video model to Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model; reference-image tasks default to the 4.7 model 2k version unless the user specifies another model.
 - Updated project indexes and context docs to list the new active skill and research document.
+- Added `Seedance2.5天马行空Skill.md` as a standalone installable Dreamina skill for extreme-imagination Seedance 2.5 video generation.
+- The new wild skill covers 30-second surreal video concepts, up to 50 reference assets, layered reference star maps, deep mutation editing, impossible-rule prompt design, extreme-scene templates, QA gates, failure-type repair, and overload degradation.
+- Updated project indexes and context docs to list the new wild Seedance 2.5 skill and its model defaults.
 
 ## 2026-06-29
 
