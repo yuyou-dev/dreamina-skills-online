@@ -11,6 +11,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 - a choice-driven jewelry design evolution skill;
 - a talk-show video skill;
 - a cinematic storyboard and Seedance video generation skill;
+- a Seedance 2.5 long-form video creation and controlled-editing skill;
 - a Xiaohei-style Chinese article illustration skill;
 - a standalone large-batch execution skill.
 
@@ -50,6 +51,7 @@ Default model policy:
 - Image tasks use the 4.7 model 2k version by default.
 - If the user explicitly specifies a model version, use the user-specified version instead of the default.
 - `影视镜头生成Skill.md` is an explicit exception: image tasks use `seedream4.7` by default and video tasks use `seedance2.0mini` by default.
+- `Seedance2.5创作大师Skill.md` is an explicit exception: video tasks use Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model by default; reference-image tasks use the 4.7 model 2k version by default.
 
 ## Design Principles
 
@@ -171,6 +173,23 @@ Purpose:
 - default video generation on `seedance2.0mini`;
 - quality gates for brief intake, storyboard prompt, storyboard image, Seedance prompt, video output, and final delivery;
 - repair prompts for storyboard-grid capture, identity drift, product deformation, random camera motion, excessive action, malformed text, discontinuity, and low-light failure.
+
+### Seedance2.5创作大师Skill.md
+
+Purpose:
+
+- Seedance 2.5 video creation and controlled editing;
+- 30-second coherent output, long one-shot narration, multi-reference video, text-to-video, image-to-video, video-editing, multilingual text video, and final video QA;
+- default video generation on Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model;
+- reference-image generation on the 4.7 model 2k version unless the user specifies another image model;
+- prompt construction based on complete official showcase prompt research:
+  - strong time-axis beats;
+  - visual throughline locking;
+  - reference binding tables;
+  - second-level shot control;
+  - controlled-edit keep/change constraints;
+  - multilingual text accuracy;
+  - video QA and repair.
 
 ### 小黑怪诞正文配图Skill.md
 

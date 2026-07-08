@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-07-08
+
+- Added `Seedance2.5创作大师Skill.md` as a standalone installable Dreamina skill.
+- Captured complete Seedance 2.5 official showcase prompts in `SEEDANCE25_PROMPT_RESEARCH.md`:
+  - 29 full prompt strings from the official page's rendered content, async component data, and official text data;
+  - model signals including 30-second narrative, full-modal reference expansion, controlled editing, multilingual presentation, 4-30 second duration, 24fps, and video-editing support;
+  - prompt pattern summary for time-axis beats, visual throughline locks, reference binding, second-level shot control, controlled edits, materials, physics, and multilingual text.
+- The new skill covers Seedance 2.5 long video creation, multi-reference video, text-to-video, image-to-video, controlled video editing, multilingual text video, QA gates, repair rules, and final delivery.
+- Set the new skill's default video model to Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model; reference-image tasks default to the 4.7 model 2k version unless the user specifies another model.
+- Updated project indexes and context docs to list the new active skill and research document.
+
 ## 2026-06-29
 
 - Added `小黑怪诞正文配图Skill.md` as a standalone installable Dreamina skill.

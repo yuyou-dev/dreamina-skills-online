@@ -13,6 +13,7 @@
 - 珠宝电商图文视频物料生产。
 - 角色脱口秀视频生成。
 - 影视分镜参考图与 Seedance 视频镜头生成。
+- Seedance 2.5 长叙事、多参考、可控编辑和多语种视频创作。
 - 中文文章小黑怪诞正文配图生成。
 - 大批量任务规划、数量守恒、分批和并发执行。
 
@@ -25,6 +26,7 @@
 | [珠宝电商素材Skill.md](珠宝电商素材Skill.md) | 珠宝电商素材Skill | 珠宝产品 + 简单描述生成全套电商图、文案和视频 | active |
 | [脱口秀视频Skill.md](脱口秀视频Skill.md) | 脱口秀视频Skill | 上传角色 + 一句话主题，确认脚本后生成并拼接脱口秀视频 | active |
 | [影视镜头生成Skill.md](影视镜头生成Skill.md) | 影视镜头生成Skill | 影视分镜参考图、镜头语言、Seedance 视频生成、视频 QA 与修复 | active |
+| [Seedance2.5创作大师Skill.md](Seedance2.5创作大师Skill.md) | Seedance 2.5 创作大师Skill | Seedance 2.5 长视频创作、30 秒连贯直出、多参考视频、可控编辑、多语种文字视频、视频 QA 与修复 | active |
 | [小黑怪诞正文配图Skill.md](小黑怪诞正文配图Skill.md) | 小黑怪诞正文配图Skill | 中文文章、观点和方法论内容的小黑风格白底手绘正文配图 | active |
 | [大批量执行Skill.md](大批量执行Skill.md) | 大批量执行Skill | 大型项目拆解、任务清单、分批、并发、数量校验和执行包输出 | active |
 
@@ -36,6 +38,7 @@
 | [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | 背景、约束、设计原则、当前方向 | 否 |
 | [CHANGELOG.md](CHANGELOG.md) | 记录重要迭代和提交主题 | 否 |
 | [JEWELRY_PROMPT_RESEARCH.md](JEWELRY_PROMPT_RESEARCH.md) | 珠宝提示词研究备忘，整合设计师提示词与 OpenAI 图像提示词范式 | 否 |
+| [SEEDANCE25_PROMPT_RESEARCH.md](SEEDANCE25_PROMPT_RESEARCH.md) | Seedance 2.5 官方展示页完整 prompt 采集与模式总结 | 否 |
 | [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) | 链式调用、批量、并发的共享维护备忘 | 否 |
 | [presets/README.md](presets/README.md) | 未来预设扩展的命名和字段约定 | 否 |
 | [LICENSE](LICENSE) | MIT License | 否 |
@@ -47,6 +50,7 @@
 - 工具名应使用即梦在线版工具清单中的名称，例如 `text2image`、`image2image`、`multi_modal2video`、`video_editor`、`generate_form_for_info_collection`。
 - 默认模型规则：视频类任务默认使用 `seedance2.0fast_vip`；图片类任务默认使用 4.7 模型的 2k 版；用户明确指定模型版本时按用户指定执行。
 - `影视镜头生成Skill.md` 使用独立默认：图片模型 `seedream4.7`，视频模型 `seedance2.0mini`；用户明确指定模型版本时按用户指定执行。
+- `Seedance2.5创作大师Skill.md` 使用独立默认：视频模型 Seedance 2.5 / `seedance2.5` / 平台中对应的 Seedance 2.5 视频模型；参考图默认使用 4.7 模型 2k 版；用户明确指定模型版本时按用户指定执行。
 - 对链式调用要写明“下一步工具”和“输入素材”，避免停在单步图、脚本、分段素材或计划摘要。
 - 大批量任务要先建立 manifest，保证数量守恒、依赖完整、失败项可重试。
 - 对珠宝 skill，重点保留主石/元素/草稿特征，补充品类配比、宝石排列、构图密度、画面表现和负向约束。
