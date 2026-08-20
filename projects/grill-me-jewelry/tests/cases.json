@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "gm-trigger-explicit",
+      "type": "trigger",
+      "input": "用 Grill Me 珠宝帮我深挖一下，我只知道想做一枚蓝宝石戒指。",
+      "expected": ["进入四轮探索", "保留蓝宝石和戒指事实并改问更深的未决问题"],
+      "forbidden": ["重问已知品类和主石", "直接生成图片"]
+    },
+    {
+      "id": "gm-boundary-clear-retouch",
+      "type": "boundary",
+      "input": "精修这张戒指图，保留款式，只清理划痕。",
+      "expected": ["不进入 Grill Me", "按清晰的图片编辑目标处理"],
+      "forbidden": ["启动四轮访谈"]
+    },
+    {
+      "id": "gm-missing-source-asset",
+      "type": "missing-required",
+      "input": "用我的祖母绿裸石做 Grill Me 珠宝，但我还没上传裸石图。",
+      "expected": ["在表单外要求上传裸石图", "素材到位前停止确认和出图"],
+      "forbidden": ["通过表单上传图片", "假装已经看到裸石"]
+    },
+    {
+      "id": "gm-tool-route-reference",
+      "type": "tool-route",
+      "input": "四轮已经完成并确认，请基于我上传的草图生成四款。",
+      "expected": ["使用 image2image", "为每款写明草图保留项和至少三个变化轴"],
+      "forbidden": ["使用 text2image 重造草图身份", "输出一张四宫格抵扣四款"]
+    },
+    {
+      "id": "gm-default-panel-model",
+      "type": "default-override",
+      "input": "我当前面板已经选好图片模型和3比4比例，按这些设置完成访谈后的候选。",
+      "expected": ["继承面板模型和比例", "不应用4.7模型2k技能默认覆盖面板"],
+      "forbidden": ["静默换模型", "改成默认白底比例"]
+    },
+    {
+      "id": "gm-failure-identity-drift",
+      "type": "failure-handling",
+      "input": "GM-03 把我锁定的椭圆蓝宝石改成了圆钻。",
+      "expected": ["保留 GM-03 编号并记录身份漂移", "加强主石锁定后仅重试失败候选，最多两次"],
+      "forbidden": ["删除失败编号", "用超分修复结构错误"]
+    },
+    {
+      "id": "gm-four-round-order",
+      "type": "four-round-order",
+      "input": "帮我做个珠宝，什么方向都没有。",
+      "expected": ["依次完成创作地基、意义内核、设计语言、变化与交付", "四轮之后才进入独立确认"],
+      "forbidden": ["跳过某一阶段", "把确认算作第四轮"]
+    },
+    {
+      "id": "gm-question-limit",
+      "type": "question-limit",
+      "input": "我什么都没想好，你一次多问点吧。",
+      "expected": ["每轮只提交一到四个当前可回答字段", "每轮后输出简短累计摘要"],
+      "forbidden": ["单轮超过四个字段", "一次展示完整平面清单"]
+    },
+    {
+      "id": "gm-singular-is-not-count",
+      "type": "quantity-integrity",
+      "input": "我想给母亲做一枚祖母绿戒指，用 Grill Me 帮我探索。",
+      "expected": ["锁定祖母绿戒指和赠予母亲", "仍在创作地基阶段询问 delivery_count"],
+      "forbidden": ["把一枚自动解释为交付1款", "跳过数量确认"]
+    },
+    {
+      "id": "gm-confirmation-gate",
+      "type": "confirmation-gate",
+      "input": "四轮问完了，但我还没有确认简报。",
+      "expected": ["展示共享简报和候选矩阵", "调用独立确认表单"],
+      "forbidden": ["调用 text2image", "调用 image2image"]
+    },
+    {
+      "id": "gm-quantity-integrity",
+      "type": "quantity-integrity",
+      "input": "我明确要4款，确认后开始生成。",
+      "expected": ["建立 GM-01 到 GM-04", "报告 requested、done、failed、missing 数量"],
+      "forbidden": ["少生成不报告", "用合集图抵扣独立候选"]
+    },
+    {
+      "id": "gm-candidate-distance",
+      "type": "candidate-distance",
+      "input": "四款都围绕同一个守护故事，但我要差异明显。",
+      "expected": ["锁定故事和佩戴逻辑", "每款至少改变轮廓、镶嵌、宝石布局等三个可见轴"],
+      "forbidden": ["只改颜色", "只改背景和镜头"]
+    },
+    {
+      "id": "gm-locked-all-axes",
+      "type": "candidate-distance",
+      "input": "要四款，但轮廓、镶嵌、宝石布局、负空间和工艺都不许变。",
+      "expected": ["要求放宽限制或改为单款", "阻止伪差异候选"],
+      "forbidden": ["靠形容词制造四款差异"]
+    },
+    {
+      "id": "gm-local-correction",
+      "type": "local-correction",
+      "input": "确认页把材质从玫瑰金改成铂金，其他都保持。",
+      "expected": ["只更新材质及受影响候选矩阵", "修改后再次确认"],
+      "forbidden": ["重新进行完整四轮", "丢失其他已确认答案"]
+    },
+    {
+      "id": "gm-text-only",
+      "type": "tool-route",
+      "input": "四轮结束后我只要文字简报，不需要出图。",
+      "expected": ["交付确认版简报和候选规划", "不调用图片工具"],
+      "forbidden": ["创建生成任务"]
+    }
+  ]
+}

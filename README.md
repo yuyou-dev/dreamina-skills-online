@@ -9,6 +9,7 @@
 | `jewelry-design` | [专业珠宝设计技能](projects/jewelry-design/skill/专业珠宝设计技能.md) | 单款、批量、系列、参考图变体和材质矩阵 |
 | `jewelry-design-evolution` | [珠宝设计进化技能](projects/jewelry-design-evolution/skill/珠宝设计进化技能.md) | 选择题驱动的 4/8 方向珠宝进化 |
 | `jewelry-ecommerce-materials` | [珠宝电商素材技能](projects/jewelry-ecommerce-materials/skill/珠宝电商素材技能.md) | 多平台珠宝商品图、文案和短视频 |
+| `grill-me-jewelry` | [Grill-Me珠宝创作](projects/grill-me-jewelry/skill/Grill-Me珠宝创作.md) | 四轮深度访谈、确认和差异化候选生成 |
 | `talk-show-video` | [脱口秀视频生成技能](projects/talk-show-video/skill/脱口秀视频生成技能.md) | 角色脚本、分段生成和完整成片 |
 | `cinematic-shot-generation` | [影视镜头生成技能](projects/cinematic-shot-generation/skill/影视镜头生成技能.md) | 分镜、关键帧、Seedance 视频和修复 |
 | `seedance-2-5-creator` | [Seedance2-5创作大师](projects/seedance-2-5-creator/skill/Seedance2-5创作大师.md) | Seedance 2.5 长叙事、多参考和可控编辑 |

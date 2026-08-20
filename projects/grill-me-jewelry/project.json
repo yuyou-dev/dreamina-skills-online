@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "grill-me-jewelry",
+  "name": "Grill-Me珠宝创作",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/Grill-Me珠宝创作.md",
+  "legacyPaths": [],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md",
+    "knowledge/research/jewelry-prompt-research.md"
+  ],
+  "origins": [
+    {
+      "kind": "migration",
+      "repository": "https://github.com/yuyou-dev/SVT-Jewelry-Skills-Image-2.git",
+      "commit": "57b47cbd217bda657b1fa8fab78fada3b6729f88",
+      "path": ".agents/skills/jewelry-grill-me/SKILL.md",
+      "sha256": "1aa53009d467c4522604faa4a086e82a05ca6461dd8f680b5ee74f9915fe240c"
+    },
+    {
+      "kind": "migration-reference",
+      "repository": "https://github.com/yuyou-dev/SVT-Jewelry-Skills-Image-2.git",
+      "commit": "57b47cbd217bda657b1fa8fab78fada3b6729f88",
+      "path": ".agents/skills/jewelry-grill-me/references/design-frontier.md",
+      "sha256": "ce9f3c22668fc29dd2e294eeedc45ba04f06e5d8609153967266568cb0a877b7"
+    }
+  ]
+}

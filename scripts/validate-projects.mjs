@@ -186,7 +186,13 @@ for (const directory of projectDirs) {
           fail(path.relative(root, casesFile), `invalid case shape: ${testCase.id ?? "unknown"}`);
         }
       }
-      for (const type of requiredCaseTypes) {
+      const projectRequiredTypes = new Set(requiredCaseTypes);
+      if (directory === "grill-me-jewelry") {
+        for (const type of ["four-round-order", "question-limit", "confirmation-gate", "quantity-integrity", "candidate-distance", "local-correction"]) {
+          projectRequiredTypes.add(type);
+        }
+      }
+      for (const type of projectRequiredTypes) {
         if (!foundTypes.has(type)) fail(path.relative(root, casesFile), `missing required case type: ${type}`);
       }
     }

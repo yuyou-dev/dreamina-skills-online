@@ -15,6 +15,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 - a Seedance 2.5 extreme-imagination video generation and deep-mutation editing skill;
 - a Xiaohei-style Chinese article illustration skill;
 - a standalone large-batch execution skill.
+- a four-round Grill Me jewelry discovery and generation skill migrated from an external Codex plugin workflow.
 
 Since 2026-08-20, every installable Skill is maintained as an independent Project under `projects/`, with one authoritative single-file artifact, a manifest, and behavioral acceptance cases.
 
@@ -108,6 +109,17 @@ For counted work, counts are binding:
 - `missing_count > 0` means the delivery is incomplete.
 
 ## Current Skills
+
+### Grill-Me珠宝创作
+
+Purpose:
+
+- explicit or extreme-ambiguity jewelry discovery;
+- four submitted discovery rounds plus a separate confirmation round;
+- candidate matrices with at least three visible changed axes per branch;
+- direct `text2image` / `image2image` execution after confirmation;
+- stable candidate IDs, quantity integrity, QA, and targeted retry;
+- no runtime dependency on Codex sub-skills, Apps UI, MCP discovery, providers, or source references.
 
 ### 专业珠宝设计技能
 
