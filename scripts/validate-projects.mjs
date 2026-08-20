@@ -146,6 +146,47 @@ for (const directory of projectDirs) {
     for (const deprecated of ["技能名称:", "技能描述:", "video_editor", "text2image_v3", "image2image_v3"]) {
       if (content.includes(deprecated)) fail(relativeSkill, `contains deprecated syntax: ${deprecated}`);
     }
+    if (directory === "grill-me-jewelry") {
+      for (const required of [
+        "本技能只接受三类创作输入",
+        "本技能只交付一种结果",
+        "主石视觉指纹",
+        "珠宝艺术设计知识",
+        "纹样设计",
+        "文化语义",
+        "前后关联的问题树",
+        "完整、标准、纯白背景的珠宝设计图",
+        "确认前禁止调用任何图片工具",
+        "用户已主动说明视觉灵魂时，直接锁定",
+        "用户已说明主石角色时直接跳过",
+        "没有尚未解决、且答案仍会显著改变成图的 open 或 conflict 项",
+        "未启用的字段直接省略",
+        "每次通常问 1-3 个问题，最多 4 个",
+        "设计师必须主动提出 3 条原创命题",
+        "必须放在同一个首轮表单的两个字段中",
+        "至少改变三个可见轴",
+        "不得复用完整轮廓",
+        "最终回复只保留"
+      ]) {
+        if (!content.includes(required)) fail(relativeSkill, "missing Grill-Me scope contract: " + required);
+      }
+      const drift = content.match(/证书|鉴定|实验室|科研|佩戴工程|制造风险|旧珠宝|草图|维修|maker_confirm|prototype_required/);
+      if (drift) fail(relativeSkill, "contains out-of-scope Grill-Me domain: " + drift[0]);
+      const presentationDrift = content.match(/四轮|浅灰|中性灰|灰白背景|灰色背景|白到浅灰/);
+      if (presentationDrift) fail(relativeSkill, "contains out-of-scope Grill-Me presentation: " + presentationDrift[0]);
+      for (const tool of [
+        "creation_agent_search",
+        "foreground_segmentation",
+        "text2video",
+        "image2video",
+        "start_end2video",
+        "multi_frame2video",
+        "multi_modal2video",
+        "clip_join"
+      ]) {
+        if (content.includes(tool)) fail(relativeSkill, "contains out-of-scope Grill-Me tool: " + tool);
+      }
+    }
   }
 
   const skillDirectory = path.join(projectRoot, "skill");
@@ -188,8 +229,43 @@ for (const directory of projectDirs) {
       }
       const projectRequiredTypes = new Set(requiredCaseTypes);
       if (directory === "grill-me-jewelry") {
-        for (const type of ["four-round-order", "question-limit", "confirmation-gate", "quantity-integrity", "candidate-distance", "local-correction"]) {
+        for (const type of [
+          "artistic-domain-order",
+          "question-limit",
+          "confirmation-gate",
+          "quantity-integrity",
+          "candidate-distance",
+          "local-correction",
+          "main-stone-visual",
+          "context-replan",
+          "multi-turn-replan",
+          "pattern-culture",
+          "trend-language",
+          "standard-white-output",
+          "scope-boundary"
+        ]) {
           projectRequiredTypes.add(type);
+        }
+        const requiredCases = new Map([
+          ["gm-main-stone-visual-fingerprint", ["在任何表单前读取@图片1", "要求用户重新描述图片"]],
+          ["gm-main-stone-complete-intent-skip", ["跳过所有已知问题", "再问最想保留哪个特征"]],
+          ["gm-scope-nonwhite-output", ["只交付完整标准白底珠宝设计图", "生成场景"]],
+          ["gm-artistic-domain-order", ["同一个首轮表单的两个字段中", "先让用户选择抽象构成术语"]],
+          ["gm-no-seed-designer-proposes", ["至少改变三个可见轴", "继续问想要什么感觉"]],
+          ["gm-cultural-source", ["只有用户表达个人记忆意图时才追问个人关系", "直接贴藻井图案"]],
+          ["gm-no-text-final", ["不混入长篇设计简报或提示词", "把文字方案当最终交付"]]
+        ]);
+        const casesById = new Map((suite.cases ?? []).map((testCase) => [testCase.id, testCase]));
+        for (const [id, phrases] of requiredCases) {
+          const testCase = casesById.get(id);
+          if (!testCase) {
+            fail(path.relative(root, casesFile), `missing required Grill-Me behavior case: ${id}`);
+            continue;
+          }
+          const contract = [...testCase.expected, ...testCase.forbidden].join("\n");
+          for (const phrase of phrases) {
+            if (!contract.includes(phrase)) fail(path.relative(root, casesFile), `${id} is missing contract phrase: ${phrase}`);
+          }
         }
       }
       for (const type of projectRequiredTypes) {

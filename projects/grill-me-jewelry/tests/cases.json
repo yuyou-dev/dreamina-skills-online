@@ -4,163 +4,289 @@
     {
       "id": "gm-trigger-explicit",
       "type": "trigger",
-      "input": "用 Grill Me 珠宝帮我深挖一下，我只知道想做一枚蓝宝石戒指。",
-      "expected": ["进入四轮探索", "保留蓝宝石和戒指事实并改问更深的未决问题"],
-      "forbidden": ["重问已知品类和主石", "直接生成图片"]
+      "input": "用 Grill Me 帮我探索一枚有家族记忆的戒指，我现在只有这个念头。",
+      "expected": ["进入动态艺术设计访谈", "先把家族记忆转成可见母题，再选择当前最高价值问题"],
+      "forbidden": ["强制预告固定轮次", "直接生成图片", "先问与成图无关的信息"]
     },
     {
-      "id": "gm-boundary-clear-retouch",
+      "id": "gm-boundary-clear-direct",
       "type": "boundary",
-      "input": "精修这张戒指图，保留款式，只清理划痕。",
-      "expected": ["不进入 Grill Me", "按清晰的图片编辑目标处理"],
-      "forbidden": ["启动四轮访谈"]
+      "input": "生成一对完整白底耳环：蓝色几何珐琅、正面镜像、黄金窄边、单款、4K。需求已经确定，直接出图。",
+      "expected": ["不进入 Grill Me 访谈", "按明确的白底珠宝设计需求直接执行"],
+      "forbidden": ["重复询问品类、颜色或数量", "强行深度探索"]
     },
     {
-      "id": "gm-missing-source-asset",
+      "id": "gm-scope-nonwhite-output",
+      "type": "scope-boundary",
+      "input": "用 Grill Me 做一组模特佩戴、森林场景和节日海报。",
+      "expected": ["说明本技能只交付完整标准白底珠宝设计图", "停止本流程并建议改用匹配的任务流程"],
+      "forbidden": ["生成模特", "生成场景", "生成海报", "把这些要求带入访谈"]
+    },
+    {
+      "id": "gm-missing-main-stone",
       "type": "missing-required",
-      "input": "用我的祖母绿裸石做 Grill Me 珠宝，但我还没上传裸石图。",
-      "expected": ["在表单外要求上传裸石图", "素材到位前停止确认和出图"],
-      "forbidden": ["通过表单上传图片", "假装已经看到裸石"]
+      "input": "围绕我的主石图片做 Grill Me，但我还没有上传图片。",
+      "expected": ["在表单外要求上传主石图片", "图片到位前不假装完成视觉观察"],
+      "forbidden": ["通过表单上传图片", "编造主石颜色和轮廓", "调用图片工具"]
     },
     {
-      "id": "gm-tool-route-reference",
+      "id": "gm-tool-route-text",
       "type": "tool-route",
-      "input": "四轮已经完成并确认，请基于我上传的草图生成四款。",
-      "expected": ["使用 image2image", "为每款写明草图保留项和至少三个变化轴"],
-      "forbidden": ["使用 text2image 重造草图身份", "输出一张四宫格抵扣四款"]
+      "input": "没有任何图片，确认后的 GM-01 是一枚以月相留白为母题的戒指。",
+      "expected": ["使用 text2image", "只生成一张完整标准白底设计图"],
+      "forbidden": ["使用 image2image", "生成场景图"]
+    },
+    {
+      "id": "gm-tool-route-main-stone",
+      "type": "tool-route",
+      "input": "GM-01 已确认，使用我上传的蓝绿色椭圆主石图片完成设计。",
+      "expected": ["使用 image2image", "锁定主石视觉身份并完成原创白底设计"],
+      "forbidden": ["使用 text2image 重造主石", "改变主石颜色、轮廓或数量"]
+    },
+    {
+      "id": "gm-tool-route-style-reference",
+      "type": "tool-route",
+      "input": "确认后参考我上传图片的负空间与重复节奏，做两款原创戒指。",
+      "expected": ["使用 image2image", "只继承确认过的负空间和节奏语法", "分别生成 GM-01 与 GM-02"],
+      "forbidden": ["复制参考图完整轮廓", "输出一张两宫格抵扣两款"]
     },
     {
       "id": "gm-default-panel-model",
       "type": "default-override",
-      "input": "我当前面板已经选好图片模型、2K清晰度和3比4比例，按这些设置完成访谈后的候选。",
-      "expected": ["继承面板模型和比例", "不应用Seedream 5.0 Pro或4K技能默认覆盖面板"],
-      "forbidden": ["静默换模型", "改成默认白底比例"]
+      "input": "面板已选好图片模型、2K和3比4比例，确认后按面板设置生成。",
+      "expected": ["分别继承面板模型、清晰度和比例", "只对未设置的参数采用技能默认"],
+      "forbidden": ["用Seedream 5.0 Pro或4K覆盖面板", "静默改比例"]
     },
     {
       "id": "gm-default-seedream-five-pro",
       "type": "default-override",
-      "input": "我没有指定模型、清晰度和展示方式，确认后生成一对耳环。",
-      "expected": ["使用Seedream 5.0 Pro的4K版", "默认选择完整白底产品展示档案"],
-      "forbidden": ["使用微距裁切作为默认", "用技能默认覆盖后续用户设置"]
+      "input": "我没有设置模型和清晰度，确认后生成一款白底胸针。",
+      "expected": ["默认使用Seedream 5.0 Pro的4K版", "使用完整标准白底设计图规范"],
+      "forbidden": ["默认生成局部特写", "生成非白底画面"]
     },
     {
-      "id": "gm-failure-identity-drift",
-      "type": "failure-handling",
-      "input": "GM-03 把我锁定的椭圆蓝宝石改成了圆钻。",
-      "expected": ["保留 GM-03 编号并记录身份漂移", "加强主石锁定后仅重试失败候选，最多两次"],
-      "forbidden": ["删除失败编号", "用超分修复结构错误"]
+      "id": "gm-artistic-domain-order",
+      "type": "artistic-domain-order",
+      "input": "我想做一件珠宝，但什么方向都没有。",
+      "expected": ["品类与创作起点同时未知时放在同一个首轮表单的两个字段中", "创作起点只区分主石或光色、具体视觉来源、个人记忆、没有起点四类", "再按答案进入对应艺术分支", "没有高价值开放项时进入独立确认"],
+      "forbidden": ["先让用户选择抽象构成术语", "按固定题单逐项盘问", "为了凑数提问"]
     },
     {
-      "id": "gm-four-round-order",
-      "type": "four-round-order",
-      "input": "帮我做个珠宝，什么方向都没有。",
-      "expected": ["依次完成创作地基、意义内核、设计语言、变化与交付", "四轮之后才进入独立确认"],
-      "forbidden": ["跳过某一阶段", "把确认算作第四轮"]
+      "id": "gm-no-seed-designer-proposes",
+      "type": "artistic-domain-order",
+      "input": "品类已经确定为胸针，但我连主题、故事、颜色和参考都没有，请你发挥专业能力。",
+      "expected": ["设计师主动提出3条原创命题", "每条包含具体观察来源、主要设计动词、第一焦点、胸针轮廓和负空间结果", "三条在来源和动作上不同并至少改变三个可见轴", "用户只需选择或组合"],
+      "forbidden": ["继续问想要什么感觉", "让用户先懂专业术语", "用三个形容词冒充三个设计方向"]
     },
     {
       "id": "gm-question-limit",
       "type": "question-limit",
-      "input": "我什么都没想好，你一次多问点吧。",
-      "expected": ["每轮只提交一到四个当前可回答字段", "每轮后输出简短累计摘要"],
-      "forbidden": ["单轮超过四个字段", "一次展示完整平面清单"]
+      "input": "我完全没想好，你一次把能问的都问了吧。",
+      "expected": ["通常提交一到三个且最多四个最高价值问题", "每个问题说明会造成的可见设计后果", "收到回答后再决定下一问"],
+      "forbidden": ["单次超过四个字段", "一次展示完整问题清单", "询问不会改变成图的问题"]
     },
     {
-      "id": "gm-singular-is-not-count",
-      "type": "quantity-integrity",
-      "input": "我想给母亲做一枚祖母绿戒指，用 Grill Me 帮我探索。",
-      "expected": ["锁定祖母绿戒指和赠予母亲", "仍在创作地基阶段询问 delivery_count"],
-      "forbidden": ["把一枚自动解释为交付1款", "跳过数量确认"]
+      "id": "gm-question-professional-not-generic",
+      "type": "question-limit",
+      "input": "我只说想要高级、有艺术感。",
+      "expected": ["把高级感拆为克制留白、精确几何、雕塑体量或统一纹样秩序等可见方向", "要求用户选择真正不同的视觉结果"],
+      "forbidden": ["只问简约还是华丽", "直接把高级感当提示词堆叠"]
     },
     {
       "id": "gm-confirmation-gate",
       "type": "confirmation-gate",
-      "input": "四轮问完了，但我还没有确认简报。",
-      "expected": ["展示共享简报和候选矩阵", "调用独立确认表单"],
-      "forbidden": ["调用 text2image", "调用 image2image"]
+      "input": "核心命题、形式构成、色彩材质和款数都已经充分，但我还没有确认。",
+      "expected": ["展示简洁设计确认内容与候选变化轴", "调用独立确认表单"],
+      "forbidden": ["调用 text2image", "调用 image2image", "继续追问低价值偏好"]
     },
     {
-      "id": "gm-quantity-integrity",
+      "id": "gm-singular-count",
       "type": "quantity-integrity",
-      "input": "我明确要4款，确认后开始生成。",
-      "expected": ["建立 GM-01 到 GM-04", "报告 requested、done、failed、missing 数量"],
-      "forbidden": ["少生成不报告", "用合集图抵扣独立候选"]
+      "input": "为这颗主石做一枚戒指，用 Grill Me 帮我探索。",
+      "expected": ["把一枚戒指解释为1款", "在确认页显示单款并不单独追问数量"],
+      "forbidden": ["默认扩成四款", "把商品件数误作款数"]
+    },
+    {
+      "id": "gm-four-count",
+      "type": "quantity-integrity",
+      "input": "我明确要四款，确认后开始生成。",
+      "expected": ["建立 GM-01 到 GM-04", "最终报告 requested、done、failed、missing"],
+      "forbidden": ["少生成而不报告", "用合集图抵扣独立候选"]
     },
     {
       "id": "gm-candidate-distance",
       "type": "candidate-distance",
-      "input": "四款都围绕同一个守护故事，但我要差异明显。",
-      "expected": ["锁定故事和佩戴逻辑", "每款至少改变轮廓、镶嵌、宝石布局等三个可见轴"],
-      "forbidden": ["只改颜色", "只改背景和镜头"]
+      "input": "四款都围绕同一颗主石和同一个潮汐母题，但差异要明显。",
+      "expected": ["锁定主石和潮汐母题", "每款至少改变三个可见设计轴"],
+      "forbidden": ["只改背景", "只改镜头", "只换形容词"]
     },
     {
-      "id": "gm-locked-all-axes",
+      "id": "gm-candidate-axes-locked",
       "type": "candidate-distance",
-      "input": "要四款，但轮廓、镶嵌、宝石布局、负空间和工艺都不许变。",
-      "expected": ["要求放宽限制或改为单款", "阻止伪差异候选"],
-      "forbidden": ["靠形容词制造四款差异"]
+      "input": "要四款，但轮廓、主石关系、负空间、色彩、纹样和节奏全都不许变。",
+      "expected": ["要求减少款数或放宽限制", "阻止伪造候选差异"],
+      "forbidden": ["靠随机小细节凑四款", "只改变光线"]
     },
     {
       "id": "gm-local-correction",
       "type": "local-correction",
-      "input": "确认页把材质从玫瑰金改成铂金，其他都保持。",
-      "expected": ["只更新材质及受影响候选矩阵", "修改后再次确认"],
-      "forbidden": ["重新进行完整四轮", "丢失其他已确认答案"]
+      "input": "确认页只把整体平衡从镜像对称改成受控偏心，其他都保持。",
+      "expected": ["只重新打开平衡及其下游轮廓和节奏", "保留主石、母题、色彩和其他锁定项", "更新后再次确认"],
+      "forbidden": ["重跑完整访谈", "丢失无关答案"]
     },
     {
-      "id": "gm-text-only",
-      "type": "tool-route",
-      "input": "四轮结束后我只要文字简报，不需要出图。",
-      "expected": ["交付确认版简报和候选规划", "不调用图片工具"],
-      "forbidden": ["创建生成任务"]
+      "id": "gm-main-stone-visual-fingerprint",
+      "type": "main-stone-visual",
+      "input": "当前会话含 @图片1；我的文字只有“用这颗主石做 Grill Me 设计”，没有复述图片内容。",
+      "expected": ["在任何表单前读取@图片1", "仅根据图片形成具体的色彩、明暗、内部视觉、轮廓长轴、光节奏、视觉重量和正负形记录", "在首个追问中承接至少两个真实观察到的特征"],
+      "forbidden": ["要求用户重新描述图片", "没有读取图片就套用通用特征", "编造图片中不可见的内容"]
     },
     {
-      "id": "gm-paired-earrings-full",
-      "type": "render-profile",
-      "input": "生成一款成对耳环的标准高质量白底产品图，要看到耳针和厚度。",
-      "expected": ["选择catalog-three-quarter", "同款两件数量准确且比例一致", "可采用一只正面一只三分之四视角"],
-      "forbidden": ["写成单件珠宝", "裁掉耳针或主体"]
+      "id": "gm-main-stone-texture-follow-up",
+      "type": "multi-turn-replan",
+      "input": "第1轮：上传半透明绿色主石，内部像层叠雾带。回答：最想保留内部雾带。下一轮应问什么？",
+      "expected": ["承接雾带母题", "询问将它转成线条密度、层叠负空间、重复单元或柔性边界中的哪一种", "选定后再进入整体轮廓和视觉层级"],
+      "forbidden": ["跳回询问颜色", "改问无关品类信息", "照固定轮次问风格"]
     },
     {
-      "id": "gm-hero-macro-explicit-only",
-      "type": "render-profile",
-      "input": "我要心形海蓝宝耳环的广告级宝石特写，允许裁掉下沿，但另交一张完整产品图。",
-      "expected": ["分别生成hero-macro和完整产品图", "特写提示词声明裁切边界和视觉焦点"],
-      "forbidden": ["把特写图抵扣完整产品图", "在同一提示词同时要求完整和裁切"]
+      "id": "gm-main-stone-color-follow-up",
+      "type": "main-stone-visual",
+      "input": "我选择主石的蓝绿双色是视觉灵魂。",
+      "expected": ["下一问进入同类延展、互补张力、渐变层次或金属留白的色彩关系", "随后确认主石是绝对中心还是与金属形成对话"],
+      "forbidden": ["重复问喜欢什么颜色", "立即询问纹样细节"]
     },
     {
-      "id": "gm-jade-material-optics",
-      "type": "material-quality",
-      "input": "冰绿翡翠山形耳钉，白底完整展示。",
-      "expected": ["使用冰润半透明、蜡状光泽、天然棉絮云雾、色根和边缘透光", "浅色材质与背景保持轮廓分离"],
-      "forbidden": ["套用钻石火彩", "生成玻璃或荧光塑料质感"]
+      "id": "gm-main-stone-role-follow-up",
+      "type": "multi-turn-replan",
+      "input": "已知：椭圆主石的长轴是母题。回答：希望金属与主石对话，不要主石独占焦点。",
+      "expected": ["下一问比较金属是沿长轴延展、反向切分还是用负空间框景", "要求确认主石或金属关系中谁仍承担主要焦点", "把角色更新为有层级的对话"],
+      "forbidden": ["默认两个同等焦点", "重问视觉灵魂"]
     },
     {
-      "id": "gm-pearl-enamel-material-optics",
-      "type": "material-quality",
-      "input": "珍珠与蓝绿珐琅耳环，做完整白底商品图。",
-      "expected": ["珍珠使用宽柔高光和轻微虹彩", "珐琅使用有厚度的饱和色层和干净金属边界"],
-      "forbidden": ["陶瓷球珍珠", "廉价树脂珐琅"]
+      "id": "gm-main-stone-complete-intent-skip",
+      "type": "multi-turn-replan",
+      "input": "当前会话含 @图片1。我已经说明：做耳环；保留图中内部雾带作为母题；主石是主要焦点，金属只负责延长雾带；整体受控偏心。",
+      "expected": ["读取图片并锁定用户主动说明的品类、视觉灵魂、主石角色和整体平衡", "跳过所有已知问题", "只选择仍会显著改变成图的下一项或直接进入确认"],
+      "forbidden": ["再问品类", "再问最想保留哪个特征", "再问主石角色", "按固定主石题单继续"]
     },
     {
-      "id": "gm-hard-gate-crop-retry",
+      "id": "gm-art-direction-change",
+      "type": "context-replan",
+      "input": "我把方向从克制留白改成雕塑化体量，但主石和家族记忆母题不变。",
+      "expected": ["保留主石视觉指纹和家族母题", "重新打开轮廓、比例、正负形和材质对话", "下一问比较单一主块面与两组体量张力"],
+      "forbidden": ["从头询问所有内容", "继续沿用原来的大留白方案"]
+    },
+    {
+      "id": "gm-multi-turn-stop",
+      "type": "multi-turn-replan",
+      "input": "已知：胸针，单款；母题是风穿过竹林；动词是穿过；第一焦点是纵向负空间；整体为受控偏心；绿色珐琅与柔雾金属；竹节只转成渐变重复；其余由你判断。",
+      "expected": ["判断停止条件已经满足", "为非冲突细节采用暂定专业选择", "直接进入独立确认"],
+      "forbidden": ["继续追问普通偏好", "强制完成更多轮次"]
+    },
+    {
+      "id": "gm-cultural-source",
+      "type": "pattern-culture",
+      "input": "我想把敦煌藻井的秩序感转成当代耳环。",
+      "expected": ["先确认具体图像来源、要保留的构成特征和抽象程度", "只有用户表达个人记忆意图时才追问个人关系", "把母题转成放射、旋转、层级、色彩或负空间"],
+      "forbidden": ["直接贴藻井图案", "混入无关文化符号", "只写传统风"]
+    },
+    {
+      "id": "gm-cultural-unknown",
+      "type": "pattern-culture",
+      "input": "做一种泛泛的神秘东方风，我说不出任何具体来源。",
+      "expected": ["要求收敛到具体视觉来源或个人记忆", "无法确认时退回线条、色彩、节奏和负空间等纯形式语言"],
+      "forbidden": ["虚构文化解释", "任意拼贴符号"]
+    },
+    {
+      "id": "gm-pattern-grammar",
+      "type": "pattern-culture",
+      "input": "我上传的纹样参考由一个水滴单元旋转重复，密度从中心向外降低。",
+      "expected": ["自动记录母题单元、旋转、重复和密度渐变", "下一问聚焦它应成为整体轮廓、负空间、连续带还是局部细节"],
+      "forbidden": ["只说把纹样加上去", "再问图案长什么样"]
+    },
+    {
+      "id": "gm-art-history-language",
+      "type": "artistic-domain-order",
+      "input": "我喜欢装饰艺术的气质，但不想做复古复制品。",
+      "expected": ["把偏好翻译为轴线、阶梯、扇形、放射、对称、重复或强边界等可选机制", "询问其中哪一种机制最应主导当前母题", "建立当代原创轮廓"],
+      "forbidden": ["只把装饰艺术作为风格标签", "复制历史作品", "把全部机制同时堆入"]
+    },
+    {
+      "id": "gm-trend-language",
+      "type": "trend-language",
+      "input": "我要当代感强的2026视觉方向，但仍然是我的原创作品。",
+      "expected": ["从雕塑体量、高识别色彩、模块节奏、动态形态、材质对话或个人叙事中选择最多两个机制", "让趋势服从已确认母题"],
+      "forbidden": ["把所有趋势堆进一款", "复制品牌或现成作品"]
+    },
+    {
+      "id": "gm-timeless-no-trend",
+      "type": "trend-language",
+      "input": "我想要长期成立的个人语言，不追求当下感。",
+      "expected": ["跳过趋势分支", "转向个人母题、轮廓、比例、色彩和长期可识别的形式语法"],
+      "forbidden": ["强塞流行机制", "继续询问趋势偏好"]
+    },
+    {
+      "id": "gm-style-reference-anti-copy",
+      "type": "scope-boundary",
+      "input": "参考这张名款的留白和节奏，但不要像原作。",
+      "expected": ["把图片角色限定为抽象形式参考", "提取留白、比例和节奏并建立原创轮廓"],
+      "forbidden": ["复制完整轮廓", "复制独特元素组合", "保留品牌文字"]
+    },
+    {
+      "id": "gm-standard-white-only",
+      "type": "standard-white-output",
+      "input": "确认后的四款请按 Grill Me 标准交付。",
+      "expected": ["每款独立生成完整纯白背景珠宝设计图", "主体占比约65%到75%并保留安全边距", "画面只有珠宝本体"],
+      "forbidden": ["人物", "手", "场景", "道具", "包装", "海报", "局部裁切"]
+    },
+    {
+      "id": "gm-paired-earrings-complete",
+      "type": "standard-white-output",
+      "input": "生成一款成对耳环的标准白底设计图。",
+      "expected": ["准确呈现同款两件且尺度一致", "两件完整可见并保持确认过的方向关系", "只计为1款"],
+      "forbidden": ["只生成一只", "裁掉组成", "把两件计成2款"]
+    },
+    {
+      "id": "gm-no-text-final",
+      "type": "standard-white-output",
+      "input": "确认并生成后，按这个技能的最终格式交付。",
+      "expected": ["只列GM编号、对应白底设计图和数量状态", "不混入长篇设计简报或提示词"],
+      "forbidden": ["把文字方案当最终交付", "输出趋势报告", "输出海报排版"]
+    },
+    {
+      "id": "gm-failure-crop",
       "type": "failure-handling",
-      "input": "生成结果质感不错，但默认产品图裁掉了耳环下端。",
-      "expected": ["硬门槛失败且禁止交付和超分", "保留原ID并定向重试完整目录图、65%-70%占比和至少10%安全边距"],
-      "forbidden": ["仅因材质漂亮就通过", "用超分补回裁切"]
+      "input": "GM-02 质感很好，但耳环下端被裁掉了。",
+      "expected": ["硬门槛判定失败", "保留GM-02并只重试完整白底、65%到70%占比和至少10%安全边距"],
+      "forbidden": ["因质感好而放行", "用超分补回裁切", "删除失败编号"]
     },
     {
-      "id": "gm-quality-score-plastic-metal",
+      "id": "gm-failure-main-stone-drift",
       "type": "failure-handling",
-      "input": "结构完整，但黄金像橙色塑料，背景和构图都正常。",
-      "expected": ["金属表现评分为0并判定不通过", "仅加强贵金属反射带、真实色相、边缘和厚度后重试"],
-      "forbidden": ["总分平均后放行", "追加8K、电影感或体积光"]
+      "input": "GM-03 把锁定的蓝绿色椭圆主石变成了粉色圆石。",
+      "expected": ["保留GM-03并记录主石身份漂移", "把颜色、轮廓、长轴、数量和内部视觉前置后用image2image定向重试", "最多重试两次"],
+      "forbidden": ["接受随机变化", "改用text2image", "用超分掩盖"]
+    },
+    {
+      "id": "gm-failure-plastic-metal",
+      "type": "failure-handling",
+      "input": "结构与构图正常，但黄金像橙色塑料。",
+      "expected": ["材质项判定不通过", "只加强真实暖色反射、连续明暗带、边缘和厚度后重试"],
+      "forbidden": ["平均总分后放行", "追加电影感或霓虹发光"]
     },
     {
       "id": "gm-super-resolution-gate",
       "type": "tool-route",
-      "input": "这张图结构没问题但欧泊像霓虹贴图，先帮我超分。",
-      "expected": ["拒绝在材质检查失败时超分", "按欧泊体内变彩和自然色斑定向重试"],
-      "forbidden": ["调用image_super_resolution掩盖材质错误"]
+      "input": "这张图造型不错，但纹样像贴纸，先超分吧。",
+      "expected": ["拒绝在艺术硬门槛失败时超分", "先让纹样参与边界、重复、负空间或体量组织并重试"],
+      "forbidden": ["调用image_super_resolution掩盖问题"]
+    },
+    {
+      "id": "gm-professional-delegation",
+      "type": "confirmation-gate",
+      "input": "核心命题、主石、轮廓和色彩都对，其余由你做专业判断，不要再问。",
+      "expected": ["为非冲突项采用有理由的暂定选择", "停止追问并进入独立确认"],
+      "forbidden": ["继续追问细枝末节", "把暂定项伪装成用户原话"]
     }
   ]
 }

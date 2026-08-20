@@ -15,7 +15,7 @@ The original goal was to create an online Dreamina version of jewelry design wor
 - a Seedance 2.5 extreme-imagination video generation and deep-mutation editing skill;
 - a Xiaohei-style Chinese article illustration skill;
 - a standalone large-batch execution skill.
-- a four-round Grill Me jewelry discovery and generation skill migrated from an external Codex plugin workflow.
+- an attachment-aware Grill Me jewelry discovery and generation skill migrated from an external Codex plugin workflow.
 
 Since 2026-08-20, every installable Skill is maintained as an independent Project under `projects/`, with one authoritative single-file artifact, a manifest, and behavioral acceptance cases.
 
@@ -116,10 +116,13 @@ For counted work, counts are binding:
 Purpose:
 
 - explicit or extreme-ambiguity jewelry discovery;
-- four submitted discovery rounds plus a separate confirmation round;
+- strict input scope of text ideas, a main-stone image, and an optional style reference;
+- main-stone visual fingerprinting across color, outline, internal visual texture, light rhythm, axis, balance, visual weight, and positive/negative form;
+- dynamic art-design questioning across concept, hierarchy, silhouette, line/plane/volume, proportion, rhythm, color/material dialogue, pattern, and cultural translation;
+- dependency-based follow-ups, known-information deduplication, local replanning, professional delegation, and explicit stopping conditions;
 - candidate matrices with at least three visible changed axes per branch;
 - direct `text2image` / `image2image` execution after confirmation;
-- Seedream 5.0 Pro 4K default, product-display profiles, material-specific optical descriptions, hard QA gates, scored selection, and targeted retries;
+- Seedream 5.0 Pro 4K default, complete standard white-background output, material-specific optical descriptions, artistic QA gates, scored selection, and targeted retries;
 - stable candidate IDs, quantity integrity, QA, and targeted retry;
 - no runtime dependency on Codex sub-skills, Apps UI, MCP discovery, providers, or source references.
 

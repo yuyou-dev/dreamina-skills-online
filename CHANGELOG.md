@@ -2,8 +2,11 @@
 
 ## 2026-08-21
 
+- Rebuilt `Grill-Me珠宝创作` as an art-and-design workflow centered on visual concept, silhouette, hierarchy, line/plane/volume, proportion, rhythm, negative space, color, material dialogue, pattern, and cultural translation.
+- Added main-stone visual fingerprinting and dependency-based questioning so uploaded color, outline, axis, internal visual texture, light rhythm, and visual weight directly determine the next professional design question.
+- Added a sourced jewelry art-design research note and expanded Grill-Me behavior coverage for multi-turn replanning, pattern grammar, culturally grounded abstraction, contemporary visual mechanisms, professional delegation, and strict scope boundaries.
 - Upgraded `Grill-Me珠宝创作` to default to Seedream 5.0 Pro at 4K when no user or panel setting exists.
-- Added explicit jewelry display profiles, material-specific optical modules, background separation, concise prompt compilation, structural hard gates, a 10-point quality score, and failure-specific retries.
+- Fixed Grill-Me delivery to complete standard white-background jewelry design images and retained the validated material optical modules, background separation, concise prompt compilation, artistic hard gates, scored QA, and failure-specific retries.
 - Recorded a reference-image reverse engineering study and 24-image Seedream 5.0 Pro A/B/C/D test covering polished gold with aquamarine, opal with textured gold, and icy jade.
 
 ## 2026-08-20

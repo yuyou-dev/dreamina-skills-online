@@ -17,6 +17,12 @@
       "source": "research/jewelry-prompt-research.md"
     },
     {
+      "id": "jewelry-art-design-interview-research",
+      "type": "research",
+      "title": "珠宝艺术设计与动态访谈研究",
+      "source": "research/jewelry-art-design-interview-research.md"
+    },
+    {
       "id": "seedance-2-5-prompt-research",
       "type": "research",
       "title": "Seedance 2.5 官方展示页 Prompt 研究",
