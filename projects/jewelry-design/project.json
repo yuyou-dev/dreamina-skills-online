@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "jewelry-design",
+  "name": "专业珠宝设计技能",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/专业珠宝设计技能.md",
+  "legacyPaths": ["JewelryDesignSkills.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md",
+    "knowledge/research/jewelry-prompt-research.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "JewelryDesignSkills.md",
+      "sha256": "4277350c96ec5580fe53bb9aa60966de44eb12c4cc8b300d0cce11ae4ab6a691"
+    }
+  ]
+}

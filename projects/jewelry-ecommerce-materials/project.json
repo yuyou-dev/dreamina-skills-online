@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "jewelry-ecommerce-materials",
+  "name": "珠宝电商素材技能",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/珠宝电商素材技能.md",
+  "legacyPaths": ["珠宝电商素材Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md",
+    "knowledge/research/jewelry-prompt-research.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "珠宝电商素材Skill.md",
+      "sha256": "5e5e6d0d7e6ab313561ea6d3b0300a04558df4244ce88e95d76a8dd8d83d2406"
+    }
+  ]
+}

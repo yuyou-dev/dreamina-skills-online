@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "seedance25-creator-trigger-story",
+      "type": "trigger",
+      "input": "用Seedance2.5做一条30秒品牌故事片：一封信从上海传到巴黎，四季连续变化，最后落到产品上。",
+      "expected": ["生成每2至5秒一个beat的30秒时间轴", "提炼贯穿全片的信件视觉主线并继续生成完整视频"],
+      "forbidden": ["只交付创意方向、分镜或提示词就停止"]
+    },
+    {
+      "id": "seedance25-creator-boundary-static",
+      "type": "boundary",
+      "input": "只做一张静态珠宝海报，不需要动画或视频。",
+      "expected": ["识别为纯静态图片任务", "移交对应图片或珠宝设计流程"],
+      "forbidden": ["调用Seedance视频生成工具"]
+    },
+    {
+      "id": "seedance25-creator-missing-subject",
+      "type": "missing-required",
+      "input": "帮我生成一条Seedance2.5视频。",
+      "expected": ["调用generate_form_for_info_collection收集核心主体或概念", "主体补齐后再建立Seedance2.5 Brief"],
+      "forbidden": ["没有主体或参考素材就直接提交视频任务"]
+    },
+    {
+      "id": "seedance25-creator-route-deep-edit",
+      "type": "tool-route",
+      "input": "编辑我上传的视频：保持人物、动作节奏和镜头运动，用两张参考图替换服装与环境，保留原音频。",
+      "expected": ["先列出保持项与变化项并为视频、服装图、环境图、音频分配单一角色", "调用multi_modal2video，使用@视频N、@图片N、@音频N及真实主体resource_id"],
+      "forbidden": ["重新生成与原视频动作和运镜无关的内容"]
+    },
+    {
+      "id": "seedance25-creator-default-override",
+      "type": "default-override",
+      "input": "视频只要20秒、9:16，并沿用当前面板选择的Seedance模型。",
+      "expected": ["把时间轴和最终任务设为20秒与9:16", "继承面板选择的视频模型"],
+      "forbidden": ["强制改回30秒、16:9或技能默认模型"]
+    },
+    {
+      "id": "seedance25-creator-retry-text",
+      "type": "failure-handling",
+      "input": "SD25-V01里的法文标题拼错了，人物和镜头都合格，请只修文字。",
+      "expected": ["保留SD25-V01并创建带版本号的修复任务", "锁定已合格人物与镜头，只强化准确文字和出现时间"],
+      "forbidden": ["删除原job_id、重做全部视觉或把错误文字标记通过"]
+    }
+  ]
+}

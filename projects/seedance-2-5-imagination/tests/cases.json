@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "seedance25-imagination-trigger-overload",
+      "type": "trigger",
+      "input": "把我这50个参考素材做成一场30秒文明爆炸：城市长成生物，海洋升入太空，越疯狂越好。",
+      "expected": ["选择overload档位并建立50参考素材星图", "用一个主体锚点和视觉主线组织6段式30秒奇观时间轴"],
+      "forbidden": ["不分层绑定就把50个素材职责全部堆进同一镜头"]
+    },
+    {
+      "id": "seedance25-imagination-boundary-product",
+      "type": "boundary",
+      "input": "严格还原这块手表，做一条稳定、写实、结构准确的产品展示视频。",
+      "expected": ["识别为写实稳定产品视频", "移交常规Seedance2.5创作流程"],
+      "forbidden": ["擅自加入物理反转、怪诞变形或多宇宙元素"]
+    },
+    {
+      "id": "seedance25-imagination-missing-core",
+      "type": "missing-required",
+      "input": "给我做一条天马行空的视频，但我没有给任何主体、概念或素材。",
+      "expected": ["调用generate_form_for_info_collection收集疯狂核心或主体概念", "概念明确后再生成极限Brief"],
+      "forbidden": ["无核心设定就随机提交视频生成"]
+    },
+    {
+      "id": "seedance25-imagination-route-video-mutation",
+      "type": "tool-route",
+      "input": "把已上传的城市航拍视频深度变异成活体机械城市，人物参考图控制主角，音频控制节奏。",
+      "expected": ["列出原视频保持项、活体机械变化项和素材绑定关系", "调用multi_modal2video并正确使用@视频N、@图片N、@音频N与主体resource_id"],
+      "forbidden": ["忽略原视频时序与镜头运动重新创作无关画面"]
+    },
+    {
+      "id": "seedance25-imagination-default-override",
+      "type": "default-override",
+      "input": "用cosmic档位做24秒1:1方形视频，使用当前会话的视频模型，不要自动改成overload。",
+      "expected": ["采用cosmic档位、24秒和1:1时间轴", "继承当前会话视频模型"],
+      "forbidden": ["改回wild、30秒、16:9或自动升级到overload"]
+    },
+    {
+      "id": "seedance25-imagination-overload-degrade",
+      "type": "failure-handling",
+      "input": "WILD-V01连续失败，素材互相污染、动作断裂、30秒没生成完整，请按降级策略修。",
+      "expected": ["按失败类型减少同时活动素材并简化动作与转场", "保留原job_id追加修复版本，必要时拆成2至3个稳定分段后用clip_join拼接"],
+      "forbidden": ["原样重复提交相同prompt或继续增加素材和规则"]
+    }
+  ]
+}

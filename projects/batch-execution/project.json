@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "batch-execution",
+  "name": "大批量执行规划技能",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/大批量执行规划技能.md",
+  "legacyPaths": ["大批量执行Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md",
+    "knowledge/practices/chain-batch-execution.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "大批量执行Skill.md",
+      "sha256": "1dca9486f1c71301f49b43ecf52e5b711991c03f2a2ecdf58c156f5c5b83fae3"
+    }
+  ]
+}

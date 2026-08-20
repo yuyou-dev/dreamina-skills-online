@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-08-20
+
+- Reorganized all installable skills into independent `projects/<id>/` maintenance boundaries with one authoritative single-file Dreamina artifact per Project.
+- Normalized existing skills to the updated Dreamina Web contract: `name` / `description` frontmatter, matching H1, generic image tool names, `clip_join`, panel-first parameter inheritance, form attachment limits, and multimodal subject binding.
+- Added a versioned knowledge base with the user-provided official Dreamina Web Skill guide, SHA-256 metadata, a testable contract, prompt research, and chain/batch practices.
+- Added Project manifests, behavioral case suites, repository architecture and migration documentation, plus a dependency-free Node.js validator exposed through `npm test`.
+
 ## 2026-07-08
 
 - Added `Seedance2.5创作大师Skill.md` as a standalone installable Dreamina skill.

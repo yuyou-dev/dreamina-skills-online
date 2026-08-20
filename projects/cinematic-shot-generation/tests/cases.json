@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "cinematic-trigger-single-shot",
+      "type": "trigger",
+      "input": "做一条12秒电影感镜头：雨夜里一名快递员骑车穿过霓虹街道，镜头低机位跟拍。",
+      "expected": ["生成影视镜头Brief、分镜参考和单条视频任务", "默认把12秒内容收敛为一条不超过15秒的视频"],
+      "forbidden": ["因为分镜格数多就自动拆成多条视频"]
+    },
+    {
+      "id": "cinematic-boundary-seedance-long",
+      "type": "boundary",
+      "input": "我要Seedance2.5直接生成30秒跨四季的连续品牌故事片。",
+      "expected": ["识别为Seedance2.5长叙事任务", "移交Seedance2-5创作大师流程"],
+      "forbidden": ["按Seedance2.0单镜头默认压缩为普通短镜头"]
+    },
+    {
+      "id": "cinematic-missing-subject",
+      "type": "missing-required",
+      "input": "帮我生成一个很有电影感的镜头。",
+      "expected": ["调用generate_form_for_info_collection收集核心主体", "主体明确后再生成影视镜头Brief"],
+      "forbidden": ["无主体时直接调用图片或视频工具"]
+    },
+    {
+      "id": "cinematic-route-multi-reference",
+      "type": "tool-route",
+      "input": "用已上传的人物图作为主角、街景图作为环境、分镜图作为镜头节奏，生成一条15秒追逐镜头。",
+      "expected": ["为人物、环境和分镜参考分配单一素材角色", "调用multi_modal2video并以真实resource_id绑定<subject>主角</subject>"],
+      "forbidden": ["把普通参考序号当作主体resource_id或混淆素材职责"]
+    },
+    {
+      "id": "cinematic-default-override",
+      "type": "default-override",
+      "input": "做8秒9:16竖屏镜头，图片和视频都沿用当前会话已选模型。",
+      "expected": ["使用8秒和9:16设置", "继承当前会话图片与视频模型"],
+      "forbidden": ["覆盖为16:9、12至15秒或技能默认模型"]
+    },
+    {
+      "id": "cinematic-retry-identity-drift",
+      "type": "failure-handling",
+      "input": "CM-V01里主角脸变了而且雨夜太暗看不清，请按原任务修复。",
+      "expected": ["保留CM-V01并创建修复版本CM-V01-R1", "强化人物身份锁并增加可见主光、降低低光风险"],
+      "forbidden": ["原样重跑相同提示词或把失败任务标记完成"]
+    }
+  ]
+}

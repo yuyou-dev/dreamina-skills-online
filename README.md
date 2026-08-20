@@ -1,78 +1,38 @@
 # dreamina-skills-online
 
-即梦在线版自定义技能说明文档项目。
+即梦 Web 自定义 Skill 的项目化维护仓库。每个 Skill 位于独立 Project 中，安装文件始终是一个完整、自包含的 Markdown，不依赖仓库内其他文件运行。
 
-本仓库沉淀一组可直接安装到即梦在线版的 Markdown skill。每个可安装 skill 都应当是**独立、自包含、可单文件运行**的说明文档：即梦运行时不应依赖 README、共享规范、`presets/` 或其他 Markdown 被自动读取。
+## Skills
 
-## Project Purpose
-
-本项目用于把 SVT 珠宝设计与多步骤内容生产经验迁移到即梦在线工具链，并逐步沉淀成可复用 skill：
-
-- 专业珠宝设计与批量出款。
-- 选择题驱动的珠宝设计进化。
-- 珠宝电商图文视频物料生产。
-- 角色脱口秀视频生成。
-- 影视分镜参考图与 Seedance 视频镜头生成。
-- Seedance 2.5 长叙事、多参考、可控编辑和多语种视频创作。
-- Seedance 2.5 极限想象力、多参考奇观视频和深度变异编辑。
-- 中文文章小黑怪诞正文配图生成。
-- 大批量任务规划、数量守恒、分批和并发执行。
-
-## Installable Skills
-
-| 文件 | 技能名称 | 用途 | 状态 |
-|---|---|---|---|
-| [JewelryDesignSkills.md](JewelryDesignSkills.md) | JewelryDesignSkills | 专业珠宝设计、批量出款、系列设计、参考图变体、材质矩阵 | active |
-| [珠宝设计进化Skill.md](珠宝设计进化Skill.md) | 珠宝设计进化 | 上传底座或描述雏形后，用选择题生成一次性 4/8 个进化候选，并输出候选评审与定稿收尾建议 | active |
-| [珠宝电商素材Skill.md](珠宝电商素材Skill.md) | 珠宝电商素材Skill | 珠宝产品 + 简单描述生成全套电商图、文案和视频 | active |
-| [脱口秀视频Skill.md](脱口秀视频Skill.md) | 脱口秀视频Skill | 上传角色 + 一句话主题，确认脚本后生成并拼接脱口秀视频 | active |
-| [影视镜头生成Skill.md](影视镜头生成Skill.md) | 影视镜头生成Skill | 影视分镜参考图、镜头语言、Seedance 视频生成、视频 QA 与修复 | active |
-| [Seedance2.5创作大师Skill.md](Seedance2.5创作大师Skill.md) | Seedance 2.5 创作大师Skill | Seedance 2.5 长视频创作、30 秒连贯直出、多参考视频、可控编辑、多语种文字视频、视频 QA 与修复 | active |
-| [Seedance2.5天马行空Skill.md](Seedance2.5天马行空Skill.md) | Seedance 2.5 天马行空Skill | Seedance 2.5 极限想象力视频、50 参考素材星图、多宇宙奇观、深度变异编辑、极限 QA 与降级修复 | active |
-| [小黑怪诞正文配图Skill.md](小黑怪诞正文配图Skill.md) | 小黑怪诞正文配图Skill | 中文文章、观点和方法论内容的小黑风格白底手绘正文配图 | active |
-| [大批量执行Skill.md](大批量执行Skill.md) | 大批量执行Skill | 大型项目拆解、任务清单、分批、并发、数量校验和执行包输出 | active |
-
-## Support Documents
-
-| 文件 | 用途 | 运行时依赖 |
+| Project | 可安装 Skill | 用途 |
 |---|---|---|
-| [AGENTS.md](AGENTS.md) | 后续 Codex/agent 接手本仓库时的工作规则 | 否 |
-| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | 背景、约束、设计原则、当前方向 | 否 |
-| [CHANGELOG.md](CHANGELOG.md) | 记录重要迭代和提交主题 | 否 |
-| [JEWELRY_PROMPT_RESEARCH.md](JEWELRY_PROMPT_RESEARCH.md) | 珠宝提示词研究备忘，整合设计师提示词与 OpenAI 图像提示词范式 | 否 |
-| [SEEDANCE25_PROMPT_RESEARCH.md](SEEDANCE25_PROMPT_RESEARCH.md) | Seedance 2.5 官方展示页完整 prompt 采集与模式总结 | 否 |
-| [CHAIN_BATCH_EXECUTION.md](CHAIN_BATCH_EXECUTION.md) | 链式调用、批量、并发的共享维护备忘 | 否 |
-| [presets/README.md](presets/README.md) | 未来预设扩展的命名和字段约定 | 否 |
-| [LICENSE](LICENSE) | MIT License | 否 |
+| `jewelry-design` | [专业珠宝设计技能](projects/jewelry-design/skill/专业珠宝设计技能.md) | 单款、批量、系列、参考图变体和材质矩阵 |
+| `jewelry-design-evolution` | [珠宝设计进化技能](projects/jewelry-design-evolution/skill/珠宝设计进化技能.md) | 选择题驱动的 4/8 方向珠宝进化 |
+| `jewelry-ecommerce-materials` | [珠宝电商素材技能](projects/jewelry-ecommerce-materials/skill/珠宝电商素材技能.md) | 多平台珠宝商品图、文案和短视频 |
+| `talk-show-video` | [脱口秀视频生成技能](projects/talk-show-video/skill/脱口秀视频生成技能.md) | 角色脚本、分段生成和完整成片 |
+| `cinematic-shot-generation` | [影视镜头生成技能](projects/cinematic-shot-generation/skill/影视镜头生成技能.md) | 分镜、关键帧、Seedance 视频和修复 |
+| `seedance-2-5-creator` | [Seedance2-5创作大师](projects/seedance-2-5-creator/skill/Seedance2-5创作大师.md) | Seedance 2.5 长叙事、多参考和可控编辑 |
+| `seedance-2-5-imagination` | [Seedance2-5天马行空](projects/seedance-2-5-imagination/skill/Seedance2-5天马行空.md) | 极限想象力、50 素材和深度变异编辑 |
+| `xiaohei-article-illustration` | [小黑怪诞正文配图技能](projects/xiaohei-article-illustration/skill/小黑怪诞正文配图技能.md) | 中文文章的小黑怪诞手绘正文配图 |
+| `batch-execution` | [大批量执行规划技能](projects/batch-execution/skill/大批量执行规划技能.md) | 数量守恒、依赖、分批、并发和重试规划 |
 
-## Key Constraints
+## Repository Layout
 
-- 可安装 skill 文件必须自包含，不能写成“请参考另一个 Markdown 后执行”。
-- 技能内容应符合即梦自定义 skill 写法：明确触发场景、交互阶段、执行阶段、字段表、工具调用、分支条件、质量检查。
-- 工具名应使用即梦在线版工具清单中的名称，例如 `text2image`、`image2image`、`multi_modal2video`、`video_editor`、`generate_form_for_info_collection`。
-- 默认模型规则：视频类任务默认使用 `seedance2.0fast_vip`；图片类任务默认使用 4.7 模型的 2k 版；用户明确指定模型版本时按用户指定执行。
-- `影视镜头生成Skill.md` 使用独立默认：图片模型 `seedream4.7`，视频模型 `seedance2.0mini`；用户明确指定模型版本时按用户指定执行。
-- `Seedance2.5创作大师Skill.md` 使用独立默认：视频模型 Seedance 2.5 / `seedance2.5` / 平台中对应的 Seedance 2.5 视频模型；参考图默认使用 4.7 模型 2k 版；用户明确指定模型版本时按用户指定执行。
-- `Seedance2.5天马行空Skill.md` 使用独立默认：视频模型 Seedance 2.5 / `seedance2.5` / 平台中对应的 Seedance 2.5 视频模型；参考图默认使用 4.7 模型 2k 版；用户明确指定模型版本时按用户指定执行。
-- 对链式调用要写明“下一步工具”和“输入素材”，避免停在单步图、脚本、分段素材或计划摘要。
-- 大批量任务要先建立 manifest，保证数量守恒、依赖完整、失败项可重试。
-- 对珠宝 skill，重点保留主石/元素/草稿特征，补充品类配比、宝石排列、构图密度、画面表现和负向约束。
-- 款式设计类珠宝任务默认输出白底或极浅灰白背景的单件产品图；只有用户明确要求电商场景、佩戴图、包装图、广告海报或生活方式图时才改变背景。
+- `projects/`: 每个 Skill 的安装文件、manifest、测试场景和必要来源审计。
+- `knowledge/`: 即梦官方资料快照、可验证规范、提示词研究和共享实践。
+- `docs/`: 仓库架构、Project 格式、迁移方法和项目背景。
+- `scripts/`: 无第三方依赖的机械校验工具。
 
-## Recommended Workflow
+## Validation
 
-1. 修改前先读 [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) 和本 README。
-2. 如果修改可安装 skill，直接编辑对应 `.md` 文件，确保规则在该文件内完整出现。
-3. 如果新增能力，优先判断是：
-   - 扩展已有 skill 的一个预设；
-   - 新增一个独立 skill；
-   - 只更新维护说明。
-4. 修改后搜索旁白式表达，避免出现“实测发现”“不要假定”“参考某文件”等运行时无意义文字。
-5. 检查触发、字段、工具链、批量逻辑、质量门是否完整。
-6. 提交并推送到 GitHub。
+```bash
+npm test
+```
 
-## Current Repository
+校验包括 Project manifest、Skill frontmatter、正式名称、同名 H1、自包含性、官方工具名、场景测试覆盖、知识索引路径和官方手册哈希。
 
-Public GitHub repository:
+## Maintenance
 
-<https://github.com/yuyou-dev/dreamina-skills-online>
+修改前阅读 [项目背景](docs/project-context.md)、[仓库架构](docs/architecture.md) 和对应 Project。跨平台导入遵循 [迁移规范](docs/cross-platform-migration.md)，并在 `project.json` 中记录来源提交和哈希。
+
+Public repository: <https://github.com/yuyou-dev/dreamina-skills-online>

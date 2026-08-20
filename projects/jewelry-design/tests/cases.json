@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "jewelry-design-trigger-four-originals",
+      "type": "trigger",
+      "input": "请设计4款以海浪为主题的18K白金蓝宝石戒指，每款都要明显不同，输出白底主设计图。",
+      "expected": ["建立4个稳定design_id的设计矩阵", "为4款分别生成独立设计图并给出结构说明"],
+      "forbidden": ["用一张四宫格抵扣4款交付"]
+    },
+    {
+      "id": "jewelry-design-boundary-ecommerce",
+      "type": "boundary",
+      "input": "这枚已经定稿的戒指要做亚马逊九图、英文listing和10秒商品视频。",
+      "expected": ["识别为已定稿珠宝的电商物料任务", "移交珠宝电商素材流程"],
+      "forbidden": ["重新发散设计新戒指款式"]
+    },
+    {
+      "id": "jewelry-design-missing-type",
+      "type": "missing-required",
+      "input": "帮我设计一件珠宝，我还没想好做什么。",
+      "expected": ["调用generate_form_for_info_collection收集珠宝类型或设计对象", "在必填信息补齐前不调用图片生成工具"],
+      "forbidden": ["擅自假定为戒指并直接出图"]
+    },
+    {
+      "id": "jewelry-design-route-sketch-variants",
+      "type": "tool-route",
+      "input": "基于我上传的吊坠草图做3个变体，保留梨形祖母绿主石的颜色、切型和比例，只变化金属外框与副石节奏。",
+      "expected": ["使用image2image并把上传草图作为输入", "对每个变体重复主石保留规则和可变元素"],
+      "forbidden": ["改用text2image忽略上传草图"]
+    },
+    {
+      "id": "jewelry-design-user-model-override",
+      "type": "default-override",
+      "input": "沿用当前面板里我已选择的图片模型，画幅3:4，设计1款玫瑰金胸针。",
+      "expected": ["继承当前面板图片模型而不是套用技能默认模型", "使用用户指定的3:4画幅"],
+      "forbidden": ["强制改回4.7模型2k版或默认画幅"]
+    },
+    {
+      "id": "jewelry-design-retry-structure",
+      "type": "failure-handling",
+      "input": "第二款生成结果爪镶畸形、主石悬空，其他三款合格，请修复后补齐交付。",
+      "expected": ["仅为第二款补充结构与镶嵌约束后重试", "保留第二款原design_id并更新最终完成统计"],
+      "forbidden": ["删除失败项或用新的design_id掩盖失败"]
+    }
+  ]
+}

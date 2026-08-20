@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "jewelry-ecommerce-trigger-amazon",
+      "type": "trigger",
+      "input": "我上传了一枚18K金红宝石戒指产品图，请做完整亚马逊九图、英文标题与bullet points，再做一条10秒商品视频。",
+      "expected": ["建立1个SKU的9张图片、1条视频和1组文案任务清单", "所有槽位保持上传产品的身份一致"],
+      "forbidden": ["只交付一张拼图或一套示例"]
+    },
+    {
+      "id": "jewelry-ecommerce-boundary-new-designs",
+      "type": "boundary",
+      "input": "参考Art Deco风格先设计20款全新的戒指，我还没有任何定稿产品。",
+      "expected": ["识别为批量珠宝原创设计任务", "先移交批量规划和专业珠宝设计流程"],
+      "forbidden": ["直接套用亚马逊电商槽位生成20套物料"]
+    },
+    {
+      "id": "jewelry-ecommerce-missing-product",
+      "type": "missing-required",
+      "input": "帮我做一整套珠宝电商素材。",
+      "expected": ["调用generate_form_for_info_collection收集珠宝产品类型和简单描述", "必填信息补齐前停止图片与视频生成"],
+      "forbidden": ["擅自虚构具体珠宝产品"]
+    },
+    {
+      "id": "jewelry-ecommerce-route-product-photo",
+      "type": "tool-route",
+      "input": "用我上传的项链产品图做Shopify七图和短视频，必须保持吊坠轮廓、链条、主石和金属颜色不变。",
+      "expected": ["使用image2image扩展七个商品图槽位并重复产品身份锁", "用合格商品图进入视频工具，最终通过clip_join交付成片"],
+      "forbidden": ["使用text2video重新创造一个不同产品"]
+    },
+    {
+      "id": "jewelry-ecommerce-default-override",
+      "type": "default-override",
+      "input": "不要默认亚马逊方案，按小红书竖屏4:5做6张图，视频12秒，并沿用我面板选择的视频模型。",
+      "expected": ["使用用户指定的小红书6图交付结构和4:5画幅", "视频时长设为12秒并继承面板视频模型"],
+      "forbidden": ["改回9图、10秒或seedance2.0fast_vip默认值"]
+    },
+    {
+      "id": "jewelry-ecommerce-retry-slot",
+      "type": "failure-handling",
+      "input": "SKU02-IMG04的微距图把四爪改成了六爪，其他槽位合格，请修复并保持总数。",
+      "expected": ["仅对SKU02-IMG04强化爪数和产品身份锁后重试", "保留原job_id且requested_count不减少"],
+      "forbidden": ["删除失败槽位或把错误产品继续送入视频"]
+    }
+  ]
+}

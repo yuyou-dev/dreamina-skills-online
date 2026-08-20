@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "seedance-2-5-imagination",
+  "name": "Seedance2-5天马行空",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/Seedance2-5天马行空.md",
+  "legacyPaths": ["Seedance2.5天马行空Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md",
+    "knowledge/research/seedance-2-5-prompt-research.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "Seedance2.5天马行空Skill.md",
+      "sha256": "3a8f46e334cc6261de7082296ae63cebf136984d157cee764e35d66505025e61"
+    }
+  ]
+}

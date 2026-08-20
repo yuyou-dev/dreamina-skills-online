@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "talk-show-video",
+  "name": "脱口秀视频生成技能",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/脱口秀视频生成技能.md",
+  "legacyPaths": ["脱口秀视频Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "脱口秀视频Skill.md",
+      "sha256": "22a8e5b79a5c3f364f1d091c58bf11aab6dd94fe8cacf486581dfd8e3c5f69be"
+    }
+  ]
+}

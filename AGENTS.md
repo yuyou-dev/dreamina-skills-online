@@ -2,101 +2,46 @@
 
 ## Project Role
 
-This repository contains Markdown skills for Dreamina online custom skills. It is a small public documentation project, not an executable app.
-
-The main deliverables are installable `.md` skill files that can be copied into Dreamina online. Each installable skill must stand alone because Dreamina online may not read sibling Markdown files at runtime.
+This public repository maintains Dreamina Web custom skills as independent Projects. The installable artifact for every Project is exactly one self-contained Markdown file under `projects/<id>/skill/`.
 
 ## Read First
 
 Before significant edits, read:
 
 - `README.md`
-- `PROJECT_CONTEXT.md`
-- the specific skill file being edited
-- `CHANGELOG.md` for recent direction
+- `docs/project-context.md`
+- `docs/architecture.md`
+- the target Project's `project.json`, `skill/*.md`, and `tests/cases.json`
+- `CHANGELOG.md`
 
-Use `CHAIN_BATCH_EXECUTION.md` and `presets/README.md` only as maintenance aids. Do not rely on them from inside installable skills.
-
-## File Types
-
-- Installable skills:
-  - `JewelryDesignSkills.md`
-  - `珠宝设计进化Skill.md`
-  - `珠宝电商素材Skill.md`
-  - `脱口秀视频Skill.md`
-  - `大批量执行Skill.md`
-- Project docs:
-  - `README.md`
-  - `PROJECT_CONTEXT.md`
-  - `CHANGELOG.md`
-  - `CHAIN_BATCH_EXECUTION.md`
-  - `presets/README.md`
+For imports, also read `docs/cross-platform-migration.md` and the target Project's source audit. Read knowledge references only when the current Project lists them in `knowledgeRefs`.
 
 ## Editing Rules
 
-1. Keep installable skill files self-contained.
-2. Do not write installable skills as meta-commentary about testing, platform limitations, or repo structure.
-3. Use runtime-ready skill language:
-   - trigger scenarios
-   - interaction phase
-   - execution phase
-   - field / required / missing-handling tables
-   - explicit tool calls
-   - branch conditions
-   - quality checks
-4. Prefer concrete defaults over asking questions.
-5. Ask only when a required field is missing and cannot be inferred.
-6. For batch work, include manifest, stable IDs, requested/planned/done/failed/missing counts, dependency rules, and retry policy.
-7. For chain workflows, state the next tool and the input artifact after every major step.
-8. Keep negative constraints specific and useful.
+1. Keep every installable Skill self-contained. Runtime rules must not depend on Project references, repository docs, knowledge files, or another Skill.
+2. Use only `name` and `description` in frontmatter, followed immediately by an H1 identical to `name`.
+3. Write runtime-ready language: trigger boundary, interaction phase, execution phase, required-field handling, explicit tools, branches, quality gates, retry policy, and final output.
+4. Use the official tool names recorded in `knowledge/official/dreamina-web-skill-guide/contract.md`.
+5. Preserve parameter precedence: user request > panel/session defaults > Skill defaults > tool constraints > general fallback.
+6. For counted work, preserve stable IDs and requested/planned/done/failed/missing counts.
+7. For video references, enforce no BGM before final `clip_join`, delayed aspect-ratio collection, and correct subject/resource binding.
+8. Add or update behavioral cases in `tests/cases.json` whenever Skill behavior changes.
+9. Keep source provenance in `project.json`; imported Projects also need `references/source-audit.md`.
+10. Prefer simple repository-wide validation over Project-specific scripts.
 
-## Dreamina Skill Style
+## Validation
 
-Use the Dreamina custom skill style:
-
-```Markdown
----
-技能名称: ...
-技能描述: ...
----
-
-技能内容：
-
-分为**交互阶段**和**执行阶段**。
-
-## 一、交互阶段
-
-### 步骤 1：信息提取
-| 字段 | 必填 | 缺失时处理 |
-|---|---|---|
-
-## 二、执行阶段
-
-### 步骤 2：工具调用
-- 条件 A → `tool_name`
-- 条件 B → `another_tool`
-```
-
-The skills in this repository may be more detailed than the basic example, but they should still read like instructions executed inside Dreamina, not like project notes.
-
-## Validation Checklist
-
-Before finishing:
-
-- `git -C /Users/yuyou/Data/gemini_dev/SVT项目/dreamina-skills-online status --short`
-- Confirm installable skills do not depend on external Markdown at runtime.
-- Search for meta wording in installable skills:
+Before finishing, run:
 
 ```bash
-rg "实测|不要假定|外部 Markdown|README|CHAIN_BATCH|运行依赖|本仓库|旁白|上帝" *.md
+npm test
+git diff --check
+rg "技能名称:|技能描述:|video_editor|text2image_v3|image2image_v3|README|CHAIN_BATCH|本仓库" projects/*/skill/*.md
+git status --short
 ```
 
-Accept hits in project docs only when they are clearly maintenance notes, not installable skill instructions.
+The `rg` command should return no installable-Skill hits. Generated media and real Dreamina execution are not part of the repository test suite.
 
 ## Git
 
-Commit focused changes in this repository and push to:
-
-<https://github.com/yuyou-dev/dreamina-skills-online>
-
-Do not modify the sibling SVT jewelry repository unless the user explicitly asks.
+Commit focused changes and push to <https://github.com/yuyou-dev/dreamina-skills-online>. Do not modify source repositories used for read-only migration research.

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "seedance-2-5-creator",
+  "name": "Seedance2-5创作大师",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/Seedance2-5创作大师.md",
+  "legacyPaths": ["Seedance2.5创作大师Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md",
+    "knowledge/research/seedance-2-5-prompt-research.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "Seedance2.5创作大师Skill.md",
+      "sha256": "3e9c47091fa5864f11ee33c040361a345ce1a3ca0d581c054ef9e790a7e7bfb7"
+    }
+  ]
+}

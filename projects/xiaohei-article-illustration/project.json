@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "xiaohei-article-illustration",
+  "name": "小黑怪诞正文配图技能",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/小黑怪诞正文配图技能.md",
+  "legacyPaths": ["小黑怪诞正文配图Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "小黑怪诞正文配图Skill.md",
+      "sha256": "d14ae5fcca2654a5358877916786782647431b5790ba73ae44e3605b46d3a322"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "cinematic-shot-generation",
+  "name": "影视镜头生成技能",
+  "status": "active",
+  "targetPlatform": "dreamina-web",
+  "skillFile": "skill/影视镜头生成技能.md",
+  "legacyPaths": ["影视镜头生成Skill.md"],
+  "knowledgeRefs": [
+    "knowledge/official/dreamina-web-skill-guide/contract.md"
+  ],
+  "origins": [
+    {
+      "kind": "native",
+      "repository": "https://github.com/yuyou-dev/dreamina-skills-online.git",
+      "commit": "6f97052e82f0fc0d76ef56a3b5569857228f304c",
+      "path": "影视镜头生成Skill.md",
+      "sha256": "d387afab578d23ee4f749055ab51baf2ad7d23272d0120adab00b99015722ad2"
+    }
+  ]
+}

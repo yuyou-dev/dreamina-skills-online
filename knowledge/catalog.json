@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "dreamina-web-skill-guide",
+      "type": "official",
+      "title": "即梦Web-Skill创作工具与知识手册_新版",
+      "activeVersion": "2026-08-20-user-provided",
+      "source": "official/dreamina-web-skill-guide/2026-08-20/source.md",
+      "metadata": "official/dreamina-web-skill-guide/2026-08-20/metadata.json",
+      "contract": "official/dreamina-web-skill-guide/contract.md"
+    },
+    {
+      "id": "jewelry-prompt-research",
+      "type": "research",
+      "title": "Jewelry Prompt Research Notes",
+      "source": "research/jewelry-prompt-research.md"
+    },
+    {
+      "id": "seedance-2-5-prompt-research",
+      "type": "research",
+      "title": "Seedance 2.5 官方展示页 Prompt 研究",
+      "source": "research/seedance-2-5-prompt-research.md"
+    },
+    {
+      "id": "chain-batch-execution",
+      "type": "practice",
+      "title": "Chain, Batch, and Concurrency Contract",
+      "source": "practices/chain-batch-execution.md"
+    }
+  ]
+}

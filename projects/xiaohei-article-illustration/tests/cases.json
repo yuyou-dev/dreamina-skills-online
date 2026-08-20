@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "xiaohei-trigger-article-five",
+      "type": "trigger",
+      "input": "给这篇讲职场内耗的正文配5张小黑怪诞风插图，每张对应不同段落隐喻。",
+      "expected": ["先消化正文并规划5个不同段落位置和隐喻", "建立XH-IMG01至XH-IMG05并逐张生成与检查"],
+      "forbidden": ["用一张通用封面重复替代5张正文配图"]
+    },
+    {
+      "id": "xiaohei-boundary-jewelry",
+      "type": "boundary",
+      "input": "请设计一枚小黑猫造型的18K金吊坠产品图。",
+      "expected": ["识别为珠宝产品设计而非文章配图", "移交专业珠宝设计流程"],
+      "forbidden": ["把珠宝请求改成怪诞正文插画"]
+    },
+    {
+      "id": "xiaohei-missing-content",
+      "type": "missing-required",
+      "input": "帮我做一组小黑正文配图。",
+      "expected": ["调用generate_form_for_info_collection收集正文、观点或主题", "在无法推断时收集目标张数"],
+      "forbidden": ["没有内容依据就直接生成图片"]
+    },
+    {
+      "id": "xiaohei-route-edit-old-image",
+      "type": "tool-route",
+      "input": "把我上传的旧配图左上角标题去掉，保留主体构图，同时让小黑成为核心隐喻。",
+      "expected": ["调用image2image编辑上传旧图", "明确保留主体构图、移除标题并强化小黑叙事作用"],
+      "forbidden": ["忽略旧图改用text2image生成无关画面"]
+    },
+    {
+      "id": "xiaohei-default-override",
+      "type": "default-override",
+      "input": "只做3张，比例3:4，并使用当前面板已经选择的图片模型。",
+      "expected": ["manifest恰好包含3个image_id并使用3:4", "继承面板图片模型"],
+      "forbidden": ["使用默认张数、默认比例或强制切回4.7模型"]
+    },
+    {
+      "id": "xiaohei-retry-metaphor",
+      "type": "failure-handling",
+      "input": "XH-IMG02连续两次都只是装饰性放了一个小黑人，去掉它画面仍然成立，请修复。",
+      "expected": ["保留XH-IMG02编号并更换隐喻或构图类型", "让小黑承担不可替代的因果或叙事作用后重新检查"],
+      "forbidden": ["第三次继续原样重跑或把装饰性结果判为通过"]
+    }
+  ]
+}

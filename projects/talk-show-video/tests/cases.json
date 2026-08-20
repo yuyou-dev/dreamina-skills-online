@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "talk-show-trigger-character-rant",
+      "type": "trigger",
+      "input": "用我上传的卡通上班族角色做一段吐槽周一开会的脱口秀视频，先帮我写段子。",
+      "expected": ["分析上传角色并生成符合角色设定的脱口秀脚本", "在生成任何视频分段前要求用户确认脚本"],
+      "forbidden": ["脚本未确认就直接调用视频生成工具"]
+    },
+    {
+      "id": "talk-show-boundary-text-only",
+      "type": "boundary",
+      "input": "只给我写一段关于AI焦虑的文本段子，不需要角色和视频。",
+      "expected": ["识别为纯文本段子请求", "不启动角色视频生成链路"],
+      "forbidden": ["创建视频分段manifest或调用clip_join"]
+    },
+    {
+      "id": "talk-show-missing-character",
+      "type": "missing-required",
+      "input": "做一个吐槽加班的脱口秀视频，但我还没给角色图片或角色描述。",
+      "expected": ["调用generate_form_for_info_collection收集角色设定", "在表单外提示可上传角色图片"],
+      "forbidden": ["擅自使用现实人物或直接生成视频"]
+    },
+    {
+      "id": "talk-show-route-approved-script",
+      "type": "tool-route",
+      "input": "我确认刚才的脚本，用已上传角色图生成全部分段并拼成完整视频。",
+      "expected": ["按确认脚本建立包含全部segment_id的分段manifest", "以角色参考图生成各段并使用clip_join按顺序拼接成片"],
+      "forbidden": ["只交付分镜图、提示词或未拼接片段"]
+    },
+    {
+      "id": "talk-show-default-override",
+      "type": "default-override",
+      "input": "脚本确认，视频做9:16共24秒，使用当前面板已选的视频模型，不要背景音乐。",
+      "expected": ["采用9:16和24秒总时长拆分视频段", "继承面板视频模型且最终成片不加入BGM"],
+      "forbidden": ["改用默认视频模型、默认时长或自动加配乐"]
+    },
+    {
+      "id": "talk-show-retry-one-segment",
+      "type": "failure-handling",
+      "input": "TS-S03口型和台词不同步，其他分段已经通过，请修复后再合成。",
+      "expected": ["保留TS-S03原segment_id并针对口型与台词同步重试", "等所有必要分段通过后再执行最终clip_join"],
+      "forbidden": ["跳过TS-S03或重做所有已通过分段"]
+    }
+  ]
+}

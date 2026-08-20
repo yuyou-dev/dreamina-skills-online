@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "batch-trigger-hundred-images",
+      "type": "trigger",
+      "input": "要生成100张不同主题的商品图，请分批并发执行，数量不能少，失败项要重试。",
+      "expected": ["生成包含100个稳定job_id的manifest并计算requested与planned数量", "按首批和后续批次组织并发及质量门"],
+      "forbidden": ["只给示例任务或用拼图抵扣100张独立图片"]
+    },
+    {
+      "id": "batch-boundary-single-image",
+      "type": "boundary",
+      "input": "帮我生成一张白底蓝宝石戒指产品图，现在就做。",
+      "expected": ["识别为单个简单创作任务", "移交对应图片或珠宝设计流程直接执行"],
+      "forbidden": ["为单张图片启动大型批次规划"]
+    },
+    {
+      "id": "batch-missing-goal-count",
+      "type": "missing-required",
+      "input": "帮我批量生成一批内容。",
+      "expected": ["调用generate_form_for_info_collection收集项目目标", "收集明确数量或可推断的预设数量后再建立manifest"],
+      "forbidden": ["没有目标和数量就自行规划执行"]
+    },
+    {
+      "id": "batch-route-three-skus",
+      "type": "tool-route",
+      "input": "3款戒指分别做亚马逊九图、1条视频和1组文案，先给完整执行清单。",
+      "expected": ["为3个SKU规划27张图片、3条视频和3组文案", "建立产品母图到槽位图、视频再到clip_join的依赖关系"],
+      "forbidden": ["只规划一套九图供3个SKU共用"]
+    },
+    {
+      "id": "batch-default-override",
+      "type": "default-override",
+      "input": "图片并发上限设为2，视频串行，所有任务沿用当前面板已选模型。",
+      "expected": ["把图片并发限制为2且视频并发限制为1", "在manifest中继承当前面板模型设置"],
+      "forbidden": ["使用图片4至6、视频2至4的默认并发或覆盖用户模型"]
+    },
+    {
+      "id": "batch-retry-preserve-count",
+      "type": "failure-handling",
+      "input": "JOB-037和JOB-084失败了，其余98项已完成，请重试并给最终数量汇总。",
+      "expected": ["保留JOB-037和JOB-084原编号、记录失败原因并按策略重试", "最终汇总requested、done、failed和missing，所有100项都有终态"],
+      "forbidden": ["吞掉失败项、重编号或把done_count直接写成100"]
+    }
+  ]
+}

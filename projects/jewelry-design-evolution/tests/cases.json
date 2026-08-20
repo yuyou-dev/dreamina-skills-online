@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "jewelry-evolution-trigger-four-directions",
+      "type": "trigger",
+      "input": "基于我上传的蝴蝶胸针做4个进化方向，我想通过选择题决定结构保留度、元素和材质。",
+      "expected": ["调用选择题表单收集进化变量", "建立A至D四个差异化候选并保留底座身份"],
+      "forbidden": ["只生成一款定稿而不提供进化矩阵"]
+    },
+    {
+      "id": "jewelry-evolution-boundary-single-original",
+      "type": "boundary",
+      "input": "从零设计一枚唯一的婚戒，只要一个成熟定稿，不需要多方向选择。",
+      "expected": ["识别为单款原创珠宝设计", "移交专业珠宝设计流程"],
+      "forbidden": ["强制生成4个进化候选"]
+    },
+    {
+      "id": "jewelry-evolution-missing-base",
+      "type": "missing-required",
+      "input": "给我做一轮珠宝进化，我暂时没有上传图片也没有描述底座。",
+      "expected": ["调用generate_form_for_info_collection要求提供文字雏形", "在对话中提示用户上传底座图、草图或元素图"],
+      "forbidden": ["没有底座输入就直接生成候选"]
+    },
+    {
+      "id": "jewelry-evolution-route-text-base",
+      "type": "tool-route",
+      "input": "底座是一枚细窄铂金素圈戒指，没有图片；先生成底座，再做4个海浪纹样进化方向。",
+      "expected": ["先调用text2image生成底座图", "底座通过检查后调用image2image生成4个进化候选"],
+      "forbidden": ["跳过底座身份锁直接生成互不相关的4张图"]
+    },
+    {
+      "id": "jewelry-evolution-default-override",
+      "type": "default-override",
+      "input": "我要8个候选，结构高保留、进化强度微调，并使用当前会话已选模型。",
+      "expected": ["规划8个候选而不是默认4个", "采用高结构保留、微调强度并继承会话模型"],
+      "forbidden": ["用默认平衡强度或默认4候选覆盖用户选择"]
+    },
+    {
+      "id": "jewelry-evolution-retry-drift",
+      "type": "failure-handling",
+      "input": "候选B和C已经看不出原胸针轮廓了，A和D合格，请只修复漂移项。",
+      "expected": ["暂停受影响的后续扩展并强化底座身份锁", "保留B和C原候选编号分别重试"],
+      "forbidden": ["重做全部候选或用新编号替换B和C"]
+    }
+  ]
+}
