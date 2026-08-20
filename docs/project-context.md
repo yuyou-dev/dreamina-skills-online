@@ -59,6 +59,7 @@ Skill-declared model defaults:
 - `projects/cinematic-shot-generation/skill/影视镜头生成技能.md` is an explicit exception: image tasks use `seedream4.7` by default and video tasks use `seedance2.0mini` by default.
 - `projects/seedance-2-5-creator/skill/Seedance2-5创作大师.md` is an explicit exception: video tasks use Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model by default; reference-image tasks use the 4.7 model 2k version by default.
 - `projects/seedance-2-5-imagination/skill/Seedance2-5天马行空.md` is an explicit exception: video tasks use Seedance 2.5 / `seedance2.5` / the platform's corresponding Seedance 2.5 video model by default; reference-image tasks use the 4.7 model 2k version by default.
+- `projects/grill-me-jewelry/skill/Grill-Me珠宝创作.md` is an explicit exception: image tasks use Seedream 5.0 Pro at 4K by default, with panel or user settings taking precedence.
 
 ## Design Principles
 
@@ -118,6 +119,7 @@ Purpose:
 - four submitted discovery rounds plus a separate confirmation round;
 - candidate matrices with at least three visible changed axes per branch;
 - direct `text2image` / `image2image` execution after confirmation;
+- Seedream 5.0 Pro 4K default, product-display profiles, material-specific optical descriptions, hard QA gates, scored selection, and targeted retries;
 - stable candidate IDs, quantity integrity, QA, and targeted retry;
 - no runtime dependency on Codex sub-skills, Apps UI, MCP discovery, providers, or source references.
 

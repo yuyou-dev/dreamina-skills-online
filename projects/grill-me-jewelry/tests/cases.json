@@ -32,9 +32,16 @@
     {
       "id": "gm-default-panel-model",
       "type": "default-override",
-      "input": "我当前面板已经选好图片模型和3比4比例，按这些设置完成访谈后的候选。",
-      "expected": ["继承面板模型和比例", "不应用4.7模型2k技能默认覆盖面板"],
+      "input": "我当前面板已经选好图片模型、2K清晰度和3比4比例，按这些设置完成访谈后的候选。",
+      "expected": ["继承面板模型和比例", "不应用Seedream 5.0 Pro或4K技能默认覆盖面板"],
       "forbidden": ["静默换模型", "改成默认白底比例"]
+    },
+    {
+      "id": "gm-default-seedream-five-pro",
+      "type": "default-override",
+      "input": "我没有指定模型、清晰度和展示方式，确认后生成一对耳环。",
+      "expected": ["使用Seedream 5.0 Pro的4K版", "默认选择完整白底产品展示档案"],
+      "forbidden": ["使用微距裁切作为默认", "用技能默认覆盖后续用户设置"]
     },
     {
       "id": "gm-failure-identity-drift",
@@ -105,6 +112,55 @@
       "input": "四轮结束后我只要文字简报，不需要出图。",
       "expected": ["交付确认版简报和候选规划", "不调用图片工具"],
       "forbidden": ["创建生成任务"]
+    },
+    {
+      "id": "gm-paired-earrings-full",
+      "type": "render-profile",
+      "input": "生成一款成对耳环的标准高质量白底产品图，要看到耳针和厚度。",
+      "expected": ["选择catalog-three-quarter", "同款两件数量准确且比例一致", "可采用一只正面一只三分之四视角"],
+      "forbidden": ["写成单件珠宝", "裁掉耳针或主体"]
+    },
+    {
+      "id": "gm-hero-macro-explicit-only",
+      "type": "render-profile",
+      "input": "我要心形海蓝宝耳环的广告级宝石特写，允许裁掉下沿，但另交一张完整产品图。",
+      "expected": ["分别生成hero-macro和完整产品图", "特写提示词声明裁切边界和视觉焦点"],
+      "forbidden": ["把特写图抵扣完整产品图", "在同一提示词同时要求完整和裁切"]
+    },
+    {
+      "id": "gm-jade-material-optics",
+      "type": "material-quality",
+      "input": "冰绿翡翠山形耳钉，白底完整展示。",
+      "expected": ["使用冰润半透明、蜡状光泽、天然棉絮云雾、色根和边缘透光", "浅色材质与背景保持轮廓分离"],
+      "forbidden": ["套用钻石火彩", "生成玻璃或荧光塑料质感"]
+    },
+    {
+      "id": "gm-pearl-enamel-material-optics",
+      "type": "material-quality",
+      "input": "珍珠与蓝绿珐琅耳环，做完整白底商品图。",
+      "expected": ["珍珠使用宽柔高光和轻微虹彩", "珐琅使用有厚度的饱和色层和干净金属边界"],
+      "forbidden": ["陶瓷球珍珠", "廉价树脂珐琅"]
+    },
+    {
+      "id": "gm-hard-gate-crop-retry",
+      "type": "failure-handling",
+      "input": "生成结果质感不错，但默认产品图裁掉了耳环下端。",
+      "expected": ["硬门槛失败且禁止交付和超分", "保留原ID并定向重试完整目录图、65%-70%占比和至少10%安全边距"],
+      "forbidden": ["仅因材质漂亮就通过", "用超分补回裁切"]
+    },
+    {
+      "id": "gm-quality-score-plastic-metal",
+      "type": "failure-handling",
+      "input": "结构完整，但黄金像橙色塑料，背景和构图都正常。",
+      "expected": ["金属表现评分为0并判定不通过", "仅加强贵金属反射带、真实色相、边缘和厚度后重试"],
+      "forbidden": ["总分平均后放行", "追加8K、电影感或体积光"]
+    },
+    {
+      "id": "gm-super-resolution-gate",
+      "type": "tool-route",
+      "input": "这张图结构没问题但欧泊像霓虹贴图，先帮我超分。",
+      "expected": ["拒绝在材质检查失败时超分", "按欧泊体内变彩和自然色斑定向重试"],
+      "forbidden": ["调用image_super_resolution掩盖材质错误"]
     }
   ]
 }
