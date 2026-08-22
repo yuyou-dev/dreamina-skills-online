@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-23
+
+- Aligned both Seedance 2.5 installable Skills with the current Dreamina CLI contract: 4-30 second single-task output and 480p/720p/1080p resolutions.
+- Removed the obsolete 31-33 second single-task guidance and added behavioral cases for splitting longer or 4K requests before final `clip_join` assembly.
+
 ## 2026-08-21
 
 - Rebuilt `Grill-Me珠宝创作` as an art-and-design workflow centered on visual concept, silhouette, hierarchy, line/plane/volume, proportion, rhythm, negative space, color, material dialogue, pattern, and cultural translation.
