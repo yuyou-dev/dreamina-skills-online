@@ -37,6 +37,13 @@
       "forbidden": ["改回wild、30秒、16:9或自动升级到overload"]
     },
     {
+      "id": "seedance25-imagination-cli-limits",
+      "type": "constraint",
+      "input": "做一条45秒、4K的Seedance2.5多宇宙奇观视频。",
+      "expected": ["说明单次输出限制为4-30秒和480p/720p/1080p", "拆成多个合法分段并在最后使用clip_join合成45秒成片"],
+      "forbidden": ["把45秒或4K直接作为单次Seedance2.5生成参数"]
+    },
+    {
       "id": "seedance25-imagination-overload-degrade",
       "type": "failure-handling",
       "input": "WILD-V01连续失败，素材互相污染、动作断裂、30秒没生成完整，请按降级策略修。",

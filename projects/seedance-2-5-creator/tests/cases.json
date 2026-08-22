@@ -37,6 +37,13 @@
       "forbidden": ["强制改回30秒、16:9或技能默认模型"]
     },
     {
+      "id": "seedance25-creator-cli-limits",
+      "type": "constraint",
+      "input": "用 Seedance 2.5 直接生成一条33秒、4K的视频。",
+      "expected": ["说明单次任务只支持4-30秒和480p/720p/1080p", "把33秒目标拆成合法分段后用clip_join合成，或请用户选择不超过30秒的单次输出"],
+      "forbidden": ["直接提交33秒或4K的Seedance2.5生成任务"]
+    },
+    {
       "id": "seedance25-creator-retry-text",
       "type": "failure-handling",
       "input": "SD25-V01里的法文标题拼错了，人物和镜头都合格，请只修文字。",
